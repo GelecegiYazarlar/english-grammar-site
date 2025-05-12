@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Simple Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Past Simple Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+  // Multiple-choice past simple questions
+  { q: "I _____ to the mall after school.", a: "went", options: ["goed","gone","went"], exp: "Past simple of 'go' is 'went'. Example: I went to the mall after school.\nTürkçesi: 'Go' fiilinin past simple hali 'went'tir. Örnek: Okuldan sonra alışveriş merkezine gittim.\nБългарски: Миналото време на 'go' е 'went'. Пример: Отидох до мола след училище." },
+  { q: "My brother _____ a bear an hour ago.", a: "saw", options: ["seen","saw","sees"], exp: "Past simple of 'see' is 'saw'. Example: My brother saw a bear an hour ago.\nTürkçesi: 'See' fiilinin past simple hali 'saw'dır. Örnek: Erkek kardeşim bir saat önce bir ayı gördü.\nБългарски: Миналото време на 'see' е 'saw'. Пример: Брат ми видя мечка преди час." },
+  { q: "_____ Mike visit his grandmother last night?", a: "Did", options: ["Did","Are","Does"], exp: "Questions in past simple use 'did' + base verb. Example: Did Mike visit his grandmother last night?\nTürkçesi: Past simple sorularda 'did' + fiilin yalın hali kullanılır. Örnek: Mike dün gece büyükannesini ziyaret etti mi?\nБългарски: При въпроси в past simple се използва 'did' + инфинитив. Пример: Майк посети ли баба си снощи?" },
+  { q: "Alex did not _____ last weekend.", a: "work", options: ["working","worked","work"], exp: "Negative past simple uses 'did not' + base verb. Example: Alex did not work last weekend.\nTürkçesi: Past simple olumsuz cümlede 'did not' + fiilin yalın hali: 'work'. Örnek: Alex geçen hafta sonu çalışmadı.\nБългарски: При отрицание в past simple: 'did not' + инфинитив. Пример: Алекс не работи миналия уикенд." },
+  { q: "_____ Judy and Liz at last month's meeting?", a: "Were", options: ["Was","Were","Are"], exp: "For plural subjects in past simple questions, use 'were'. Example: Were Judy and Liz at last month's meeting?\nTürkçesi: Çoğul özneler için soruda 'were' kullanılır. Örnek: Judy ve Liz geçen ayki toplantıda mıydı?\nБългарски: За множествено число в прошедшето време се използва 'were'. Пример: Бяха ли Джуди и Лиз на миналогодишната среща?" },
+  { q: "We _____ not happy after the sad ending.", a: "were", options: ["were","was","did"], exp: "Past simple of 'be' for plural is 'were'. Example: We were not happy after the sad ending.\nTürkçesi: 'Be' fiilinin çoğul için past simple hali 'were'. Örnek: Üzücü sonrasında mutlu değildik.\nБългарски: Миналото време на 'be' за множествено число е 'were'. Пример: Ние не бяхме щастливи след тъжния край." },
+  { q: "_____ you see Jody's new dog yesterday?", a: "Did", options: ["Are","Did","Do"], exp: "Past simple question uses 'did' + base verb. Example: Did you see Jody's new dog yesterday?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali: 'see'. Örnek: Dün Jody'nin yeni köpeğini gördün mü?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив. Пример: Видя ли вчера новото куче на Джоди?" },
+  { q: "Sorry, I ________ hear you at the door.", a: "didn't", options: ["wasn't","didn't","am not"], exp: "Negative past simple uses 'did not' (didn't) + base verb. Example: I didn't hear you at the door.\nTürkçesi: Past simple olumsuz için 'didn't' + fiilin yalın hali: 'hear'. Örnek: Kapıda seni duymadım.\nБългарски: За отрицание в past simple: 'didn't' + инфинитив. Пример: Съжалявам, не те чух на вратата." },
+  { q: "I _____ English for two years.", a: "studied", options: ["studying","study","studied"], exp: "Past simple of 'study' is 'studied'. Example: I studied English for two years.\nTürkçesi: 'Study' fiilinin past simple hali 'studied'. Örnek: İki yıl boyunca İngilizce çalıştım.\nБългарски: Миналото време на 'study' е 'studied'. Пример: Учих английски две години." },
+  { q: "What _____ you eat for lunch yesterday?", a: "did", options: ["do","did","were"], exp: "Past simple question uses 'did' + base verb. Example: What did you eat for lunch yesterday?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali: 'eat'. Örnek: Dün öğle yemeğinde ne yedin?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив. Пример: Какво яде за обяд вчера?" },
+
+  // Fill-in-the-blank past simple questions
+  { q: "We ___ to Vancouver on holiday.", a: "went", options: ["go","went","gone"], exp: "Past simple of 'go' is 'went'. Example: We went to Vancouver on holiday.\nTürkçesi: 'Go' fiilinin past simple hali 'went'tir. Örnek: Vancouver'a tatile gittik.\nБългарски: Миналото време на 'go' е 'went'. Пример: Отидохме до Ванкувър на почивка." },
+  { q: "Did you ___ by plane?", a: "go", options: ["go","went","gone"], exp: "Question in past simple uses 'did' + base verb: 'go'. Example: Did you go by plane?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali: 'go'. Örnek: Uçağa mı gittiniz?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив: 'go'. Пример: Отидохте ли със самолет?" },
+  { q: "Jack ___ with us.", a: "came", options: ["come","came","comes"], exp: "Past simple of 'come' is 'came'. Example: Jack came with us.\nTürkçesi: 'Come' fiilinin past simple hali 'came'dir. Örnek: Jack bizimle geldi.\nБългарски: Миналото време на 'come' е 'came'. Пример: Джак дойде с нас." },
+  { q: "The car suddenly ___.", a: "stopped", options: ["stop","stopped","stopping"], exp: "Regular verb adds -ed: 'stop' → 'stopped'. Example: The car suddenly stopped.\nTürkçesi: Düzenli fiillerde '-ed' eklenir: 'stop' → 'stopped'. Örnek: Araba aniden durdu.\nБългарски: При правилните глаголи добавяме '-ed': 'stop' → 'stopped'. Пример: Колата внезапно спря." },
+  { q: "When she arrived he ___ at home.", a: "was", options: ["was","were","is"], exp: "Past simple of 'be' for he/she/it is 'was'. Example: When she arrived he was at home.\nTürkçesi: 'Be' fiilinin üçüncü tekil şahıs past simple hali 'was'. Örnek: O geldiğinde o evdeydi.\nБългарски: Миналото време на 'be' за трето лице единствено е 'was'. Пример: Когато тя пристигна, той беше вкъщи." },
+  { q: "The police ___ the robber.", a: "caught", options: ["catch","caught","caughted"], exp: "Past simple of 'catch' is 'caught'. Example: The police caught the robber.\nTürkçesi: 'Catch' fiilinin past simple hali 'caught'tır. Örnek: Polis hırsızı yakaladı.\nБългарски: Миналото време на 'catch' е 'caught'. Пример: Полицията залови обирджията." },
+  { q: "I ___ a black shirt for the gala.", a: "wore", options: ["wear","wore","worn"], exp: "Past simple of 'wear' is 'wore'. Example: I wore a black shirt for the gala.\nTürkçesi: 'Wear' fiilinin past simple hali 'wore'dur. Örnek: Galaya siyah bir gömlek giydim.\nБългарски: Миналото време на 'wear' е 'wore'. Пример: Облякох черна риза за гала." },
+  { q: "The meeting ___ well.", a: "went", options: ["go","went","gone"], exp: "Idiomatic use: 'go' → 'went' for results. Example: The meeting went well.\nTürkçesi: Deyimsel kullanım: 'go' fiilinin past simple hali 'went'. Örnek: Toplantı iyi geçti.\nБългарски: Идиоматична употреба: 'go' → 'went'. Пример: Срещата премина добре." },
+  { q: "Manchester United ___ the final.", a: "won", options: ["win","won","won't"], exp: "Past simple of 'win' is 'won'. Example: Manchester United won the final.\nTürkçesi: 'Win' fiilinin past simple hali 'won'dur. Örnek: Manchester United finali kazandı.\nБългарски: Миналото време на 'win' е 'won'. Пример: Манчестър Юнайтед спечели финала." },
+  { q: "How much ___ you pay for the car?", a: "did you pay", options: ["do you pay","did you pay","you paid"], exp: "Question in past simple uses 'did' + subject + base verb: 'did you pay'. Example: How much did you pay for the car?\nTürkçesi: Past simple soruda 'did you pay'. Örnek: Araba için ne kadar ödediniz?\nБългарски: Във въпрос в past simple: 'did you pay'. Пример: Колко платихте за колата?" },
+    { 
+    q: "I _____ to the mall after school.", 
+    a: "went", 
+    options: ["goed","gone","went"], 
+    exp: "Past simple of 'go' is 'went'. Example: I went to the mall after school.\nTürkçesi: 'Go' fiilinin past simple hali 'went'tir. Örnek: Okuldan sonra alışveriş merkezine gittim.\nБългарски: Миналото време на 'go' е 'went'. Пример: Отидох до мола след училище." 
+  },
+  { 
+    q: "My brother _____ a bear an hour ago.", 
+    a: "saw", 
+    options: ["seen","saw","sees"], 
+    exp: "Past simple of 'see' is 'saw'. Example: My brother saw a bear an hour ago.\nTürkçesi: 'See' fiilinin past simple hali 'saw'dır. Örnek: Erkek kardeşim bir saat önce bir ayı gördü.\nБългарски: Миналото време на 'see' е 'saw'. Пример: Брат ми видя мечка преди час." 
+  },
+  { 
+    q: "_____ Mike visit his grandmother last night?", 
+    a: "Did", 
+    options: ["Did","Are","Does"], 
+    exp: "Past simple questions use 'did' + base verb. Example: Did Mike visit his grandmother last night?\nTürkçesi: Past simple sorularda 'did' + fiilin yalın hali kullanılır. Örnek: Mike dün gece büyükannesini ziyaret etti mi?\nБългарски: При въпроси в past simple се използва 'did' + инфинитив. Пример: Майк посети ли баба си снощи?" 
+  },
+  { 
+    q: "Alex did not _____ last weekend.", 
+    a: "work", 
+    options: ["working","worked","work"], 
+    exp: "Negative past simple uses 'did not' + base verb. Example: Alex did not work last weekend.\nTürkçesi: Past simple olumsuz cümlede 'did not' + fiilin yalın hali kullanılır. Örnek: Alex geçen hafta sonu çalışmadı.\nБългарски: При отрицание в past simple се използва 'did not' + инфинитив. Пример: Алекс не работи миналия уикенд." 
+  },
+  { 
+    q: "_____ Judy and Liz at last month's meeting?", 
+    a: "Were", 
+    options: ["Was","Were","Are"], 
+    exp: "For plural subjects in past simple questions, use 'were'. Example: Were Judy and Liz at last month's meeting?\nTürkçesi: Çoğul özneler için sorularda 'were' kullanılır. Örnek: Judy ve Liz geçen ayki toplantıda mıydı?\nБългарски: За множествено число в past simple се използва 'were'. Пример: Бяха ли Джуди и Лиз на миналогодишната среща?" 
+  },
+  { 
+    q: "We _____ not happy after the sad ending.", 
+    a: "were", 
+    options: ["were","was","did"], 
+    exp: "Past simple of 'be' for plural is 'were'. Example: We were not happy after the sad ending.\nTürkçesi: 'Be' fiilinin çoğul için past simple hali 'were'dir. Örnek: Üzücü sonundan sonra mutlu değildik.\nБългарски: Миналото време на 'be' за множествено число е 'were'. Пример: Не бяхме щастливи след тъжния край." 
+  },
+  { 
+    q: "_____ you see Jody's new dog yesterday?", 
+    a: "Did", 
+    options: ["Are","Did","Do"], 
+    exp: "Past simple question uses 'did' + base verb. Example: Did you see Jody's new dog yesterday?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali kullanılır. Örnek: Dün Jody'nin yeni köpeğini gördün mü?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив. Пример: Видя ли вчера новото куче на Джоди?" 
+  },
+  { 
+    q: "Sorry, I ________ hear you at the door.", 
+    a: "didn't", 
+    options: ["wasn't","didn't","am not"], 
+    exp: "Negative past simple uses 'did not' (didn't) + base verb. Example: I didn't hear you at the door.\nTürkçesi: Past simple olumsuz için 'didn't' + fiilin yalın hali kullanılır. Örnek: Kapıda seni duymadım.\nБългарски: За отрицание в past simple се използва 'didn't' + инфинитив. Пример: Не те чух на вратата." 
+ },
+  { 
+    q: "I _____ English for two years.", 
+    a: "studied", 
+    options: ["studying","study","studied"], 
+    exp: "Past simple of 'study' is 'studied'. Example: I studied English for two years.\nTürkçesi: 'Study' fiilinin past simple hali 'studied'tir. Örnek: İki yıl boyunca İngilizce çalıştım.\nБългарски: Миналото време на 'study' е 'studied'. Пример: Учих английски две години." 
+  },
+  { 
+    q: "What _____ you eat for lunch yesterday?", 
+    a: "did", 
+    options: ["do","did","were"], 
+    exp: "Past simple question uses 'did' + base verb. Example: What did you eat for lunch yesterday?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali kullanılır. Örnek: Dün öğle yemeğinde ne yedin?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив. Пример: Какво яде за обяд вчера?" 
+  },
+
+  { 
+    q: "We ___ to Vancouver on holiday.", 
+    a: "went", 
+    options: ["go","went","gone"], 
+    exp: "Past simple of 'go' is 'went'. Example: We went to Vancouver on holiday.\nTürkçesi: 'Go' fiilinin past simple hali 'went'tir. Örnek: Vancouver'a tatile gittik.\nБългарски: Миналото време на 'go' е 'went'. Пример: Отидохме до Ванкувър на почивка." 
+  },
+  { 
+    q: "Did you ___ by plane?", 
+    a: "go", 
+    options: ["go","went","gone"], 
+    exp: "Past simple question uses 'did' + base verb. Example: Did you go by plane?\nTürkçesi: Past simple soruda 'did' + fiilin yalın hali kullanılır. Örnek: Uçağa mı gittiniz?\nБългарски: Във въпрос в past simple се използва 'did' + инфинитив. Пример: Отидохте ли със самолет?" 
+  },
+  { 
+    q: "Jack ___ with us.", 
+    a: "came", 
+    options: ["come","came","comes"], 
+    exp: "Past simple of 'come' is 'came'. Example: Jack came with us.\nTürkçesi: 'Come' fiilinin past simple hali 'came'dir. Örnek: Jack bizimle geldi.\nБългарски: Миналото време на 'come' е 'came'. Пример: Джак дойде с нас." 
+  },
+  { 
+    q: "The car suddenly ___.", 
+    a: "stopped", 
+    options: ["stop","stopped","stopping"], 
+    exp: "Regular verb adds -ed: 'stop' → 'stopped'. Example: The car suddenly stopped.\nTürkçesi: Düzenli fiillerde '-ed' eklenir: 'stop' → 'stopped'. Örnek: Araba aniden durdu.\nБългарски: При правилните глаголи добавяме '-ed': 'stop' → 'stopped'. Пример: Колата внезапно спря." 
+  },
+  { 
+    q: "When she arrived he ___ at home.", 
+    a: "was", 
+    options: ["was","were","is"], 
+    exp: "Past simple of 'be' for he/she/it is 'was'. Example: When she arrived he was at home.\nTürkçesi: 'Be' fiilinin üçüncü tekil şahıs past simple hali 'was'tır. Örnek: O geldiğinde o evdeydi.\nБългарски: Миналото време на 'be' за трето лице единствено е 'was'. Пример: Когато тя пристигна, той беше вкъщи." 
+  },
+  { 
+    q: "The police ___ the robber.", 
+    a: "caught", 
+    options: ["catch","caught","caughted"], 
+    exp: "Past simple of 'catch' is 'caught'. Example: The police caught the robber.\nTürkçesi: 'Catch' fiilinin past simple hali 'caught'tır. Örnek: Polis hırsızı yakaladı.\nБългарски: Миналото време на 'catch' е 'caught'. Пример: Полицията залови обирджията." 
+  },
+  ];
+  { 
+    q: "I ___ a black shirt for the gala.", 
+    a: "wore", 
+    options: ["wear","wore","worn"], 
+    exp: "Past simple of 'wear' is 'wore'. Example: I wore a black shirt for the gala.\nTürkçesi: 'Wear' fiilinin past simple hali 'wore'dur. Örnek: Galada siyah gömlek giydim.\nБългарски: Миналото време на 'wear' е 'wore'. Пример: Облякох черна риза за гала." 
+  },
+  { 
+    q: "The meeting ___ well.", 
+    a: "went", 
+    options: ["go","went","gone"], 
+    exp: "Idiomatic use: 'go' → 'went' for results. Example: The meeting went well.\nTürkçesi: İdiomatik kullanım: 'go' fiilinin past simple hali 'went'tir. Örnek: Toplantı iyi geçti.\nБългарски: Идиоматична употреба: 'go' → 'went'. Пример: Срещата премина добре." 
+  },
+  { 
+    q: "Manchester United ___ the final.", 
+    a: "won", 
+    options: ["win","won","won't"], 
+    exp: "Past simple of 'win' is 'won'. Example: Manchester United won the final.\nTürkçesi: 'Win' fiilinin past simple hali 'won'dur. Örnek: Manchester United finali kazandı.\nБългарски: Миналото време на 'win' е 'won'. Пример: Манчестър Юнайтед спечели финала." 
+  },
+  { 
+    q: "How much ___ for the car?", 
+    a: "did you pay", 
+    options: ["do you pay","did you pay","you paid"], 
+    exp: "Past simple question uses 'did' + subject + base verb. Example: How much did you pay for the car?\nTürкçesi: Past simple soruda 'did you pay'. Örnek: Araba için ne kadar ödediniz?\nБългарски: Във въпрос в past simple: 'did you pay'. Пример: Колко платихте за колата?" 
+  }
+  ];
+];
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
