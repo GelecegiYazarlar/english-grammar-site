@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Present Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+	 { q: "She ___ been working here for five years.", a: "has been working", options: ["has been working","have been working","is working"], exp: "Present perfect continuous uses have/has + been + verb-ing: 'has been working'. Example: She has been working here for five years.\nTürkçesi: Present perfect continuous için 'has been' + fiilin -ing hali kullanılır: 'has been working'. Örnek: Beş yıldır burada çalışıyor.\nБългарски: За present perfect continuous се използва 'has been' + герунд: 'has been working'. Пример: Тя работи тук вече пет години." },
+  { q: "They ___ been studying English since January.", a: "have been studying", options: ["have been studying","has been studying","have studied"], exp: "Present perfect continuous with plural subject: 'have been studying'. Example: They have been studying English since January.\nTürkçesi: Çoğul öznelerde 'have been' + fiilin -ing hali: 'have been studying'. Örnek: Ocak ayından beri İngilizce çalışıyorlar.\nБългарски: За множествено число: 'have been' + герунд: 'have been studying'. Пример: Те учат английски от януари." },
+  { q: "I ___ been feeling much better lately.", a: "have been feeling", options: ["have been feeling","has been feeling","am feeling"], exp: "Present perfect continuous for recent change: 'have been feeling'. Example: I have been feeling much better lately.\nTürkçesi: Son zamanlardaki değişimi anlatmak için 'have been feeling'. Örnek: Son zamanlarda çok daha iyi hissediyorum.\nБългарски: За скорошна промяна: 'have been feeling'. Пример: Наскоро се чувствам много по-добре." },
+  { q: "He ___ been running every morning this month.", a: "has been running", options: ["has been running","have been running","runs"], exp: "Present perfect continuous to describe repeated action: 'has been running'. Example: He has been running every morning this month.\nTürkçesi: Bu ay her sabah tekrar eden eylem için 'has been running'. Örnek: Bu ay her sabah koşuyor.\nБългарски: За повтаряща се дейност: 'has been running'. Пример: Той тича всяка сутрин този месец." },
+  { q: "We ___ been waiting for over an hour.", a: "have been waiting", options: ["have been waiting","has been waiting","have waited"], exp: "Present perfect continuous for duration: 'have been waiting'. Example: We have been waiting for over an hour.\nTürkçesi: Süre zarfı ile duration için: 'have been waiting'. Örnek: Bir saatten fazla bekliyoruz.\nБългарски: За продължителност: 'have been waiting'. Пример: Чакаме вече повече от час." },
+  { q: "It ___ been raining all day.", a: "has been raining", options: ["has been raining","have been raining","rains"], exp: "Weather in present perfect continuous: 'has been raining'. Example: It has been raining all day.\nTürkçesi: Hava durumu için: 'has been raining'. Örnek: Bütün gün yağmur yağıyor.\nБългарски: За време за времето: 'has been raining'. Пример: Целият ден вали." },
+  { q: "You ___ been working too hard recently.", a: "have been working", options: ["have been working","has been working","worked"], exp: "Advice with present perfect continuous: 'have been working'. Example: You have been working too hard recently.\nTürkçesi: Uyarı için: 'have been working'. Örnek: Son zamanlarda çok fazla çalışıyorsun.\nБългарски: За съвет: 'have been working'. Пример: Ти работиш твърде усилено напоследък." },
+  { q: "She ___ been preparing the report since Monday.", a: "has been preparing", options: ["has been preparing","have been preparing","is preparing"], exp: "Present perfect continuous with specific start: 'has been preparing'. Example: She has been preparing the report since Monday.\nTürkçesi: Belirli başlangıç için: 'has been preparing'. Örnek: Pazartesiden beri raporu hazırlıyor.\nБългарски: За конкретно начало: 'has been preparing'. Пример: Тя подготвя доклада от понеделник." },
+  { q: "They ___ been discussing the merger all afternoon.", a: "have been discussing", options: ["have been discussing","has been discussing","discussed"], exp: "Present perfect continuous for ongoing meeting: 'have been discussing'. Example: They have been discussing the merger all afternoon.\nTürkçesi: Sürekli tartışma için: 'have been discussing'. Örnek: Öğleden sonra boyunca birleşmeyi tartışıyorlar.\nБългарски: За текущо обсъждане: 'have been discussing'. Пример: Те обсъждат сливането цял следобед." },
+  { q: "I ___ been working on this problem since dawn.", a: "have been working", options: ["have been working","has been working","worked"], exp: "Intense effort over duration: 'have been working'. Example: I have been working on this problem since dawn.\nTürkçesi: Şafaktan beri uğraşma: 'have been working'. Örnek: Şafaktan beri bu sorun üzerinde çalışıyorum.\nБългарски: За продължителна работа: 'have been working'. Пример: Работя по този проблем от зори." },
+  { q: "He ___ been living with us temporarily.", a: "has been living", options: ["has been living","have been living","lives"], exp: "Temporary arrangement: 'has been living'. Example: He has been living with us temporarily.\nTürkçesi: Geçici düzen için: 'has been living'. Örnek: Geçici olarak bizimle yaşıyor.\nБългарски: За временна ситуация: 'has been living'. Пример: Той временно живее при нас." },
+  { q: "We ___ been negotiating the contract since Friday.", a: "have been negotiating", options: ["have been negotiating","has been negotiating","negotiated"], exp: "Ongoing negotiation: 'have been negotiating'. Example: We have been negotiating the contract since Friday.\nTürkçesi: Sürekli müzakere için: 'have been negotiating'. Örnek: Cuma'dan beri sözleşmeyi müzakere ediyoruz.\nБългарски: За продължителни преговори: 'have been negotiating'. Пример: Преговаряме по договора от петък." },
+  { q: "It ___ been getting colder every day.", a: "has been getting", options: ["has been getting","have been getting","gets"], exp: "Trend in present perfect continuous: 'has been getting'. Example: It has been getting colder every day.\nTürkçesi: Günlük değişim için: 'has been getting'. Örnek: Her gün daha soğuk oluyor.\nБългарски: За тенденция: 'has been getting'. Пример: Всеки ден става по-студено." },
+  { q: "You ___ been traveling a lot lately.", a: "have been traveling", options: ["have been traveling","has been traveling","travel"], exp: "Recent repetitive action: 'have been traveling'. Example: You have been traveling a lot lately.\nTürkçesi: Son zamanlardaki tekrarlar için: 'have been traveling'. Örnek: Son zamanlarda çok seyahat ediyorsun.\nБългарски: За повтарящи се действия: 'have been traveling'. Пример: Наскоро много пътуваш." },
+  { q: "She ___ been working out to prepare for the marathon.", a: "has been working out", options: ["has been working out","have been working out","works out"], exp: "Purposeful continuous action: 'has been working out'. Example: She has been working out to prepare for the marathon.\nTürkçesi: Amaçlı süreli eylem: 'has been working out'. Örnek: Maraton için antrenman yapıyor.\nБългарски: За целево действие: 'has been working out'. Пример: Тя тренира, за да се подготви за маратона." },
+  { q: "They ___ been improving their processes constantly.", a: "have been improving", options: ["have been improving","has been improving","improve"], exp: "Continuous improvement: 'have been improving'. Example: They have been improving their processes constantly.\nTürkçesi: Sürekli iyileştirme için: 'have been improving'. Örnek: Sürekli süreçlerini geliştiriyorlar.\nБългарски: За постоянно усъвършенстване: 'have been improving'. Пример: Те постоянно подобряват процесите си." },
+  { q: "I ___ been reading that book you recommended.", a: "have been reading", options: ["have been reading","has been reading","read"], exp: "Ongoing activity: 'have been reading'. Example: I have been reading that book you recommended.\nTürkçesi: Devam eden okuma için: 'have been reading'. Örnek: Tavsiye ettiğin kitabı okuyor oluyorum.\nБългарски: За текуща дейност: 'have been reading'. Пример: Чета книгата, която ми препоръча." },
+  { q: "He ___ been feeling under the weather this week.", a: "has been feeling", options: ["has been feeling","have been feeling","feels"], exp: "Health status over period: 'has been feeling'. Example: He has been feeling under the weather this week.\nTürkçesi: Hafta içi sağlık durumu: 'has been feeling'. Örnek: Bu hafta kendini iyi hissetmiyor.\nБългарски: За здравословно състояние: 'has been feeling'. Пример: Той се чувства зле тази седмица." },
+  { q: "We ___ been encountering unexpected delays.", a: "have been encountering", options: ["have been encountering","has been encountering","encounter"], exp: "Problems experienced continuously: 'have been encountering'. Example: We have been encountering unexpected delays.\nTürkçesi: Sürekli sorunlar için: 'have been encountering'. Örnek: Beklenmedik gecikmeler yaşıyoruz.\nБългарски: За повтарящи се проблеми: 'have been encountering'. Пример: Срещаме неочаквани забавяния." },
+  { q: "She ___ been practicing the piano every day.", a: "has been practicing", options: ["has been practicing","have been practicing","practices"], exp: "Regular practice over time: 'has been practicing'. Example: She has been practicing the piano every day.\nTürkçesi: Günlük pratik için: 'has been practicing'. Örnek: Her gün piyano çalışıyor.\nБългарски: За ежедневна практика: 'has been practicing'. Пример: Тя свири на пиано всеки ден." },
+  { q: "They ___ been investing heavily in technology.", a: "have been investing", options: ["have been investing","has been investing","invest"], exp: "Ongoing investment: 'have been investing'. Example: They have been investing heavily in technology.\nTürkçesi: Sürekli yatırım için: 'have been investing'. Örnek: Teknolojiye yoğun yatırım yapıyorlar.\nБългарски: За продължителна инвестиция: 'have been investing'. Пример: Те инвестират много в технологии." },
+  { q: "I ___ been experiencing connection issues lately.", a: "have been experiencing", options: ["have been experiencing","has been experiencing","experience"], exp: "Recent technical problem: 'have been experiencing'. Example: I have been experiencing connection issues lately.\nTürkçesi: Son zamanlardaki sorun için: 'have been experiencing'. Örnek: Son zamanlarda bağlantı sorunları yaşıyorum.\nБългарски: За скорошен проблем: 'have been experiencing'. Пример: Наскоро имам проблеми с връзката." },
+  { q: "The software ___ been crashing repeatedly.", a: "has been crashing", options: ["has been crashing","have been crashing","crashes"], exp: "Ongoing malfunction: 'has been crashing'. Example: The software has been crashing repeatedly.\nTürkçesi: Sürekli çökme: 'has been crashing'. Örnek: Yazılım tekrar tekrar çöküyor.\nБългарски: За постоянна неизправност: 'has been crashing'. Пример: Софтуерът се срива непрекъснато." },
+  { q: "We ___ been exploring new markets this quarter.", a: "have been exploring", options: ["have been exploring","has been exploring","explore"], exp: "Continuous exploration: 'have been exploring'. Example: We have been exploring new markets this quarter.\nTürkçesi: Bu çeyrekte pazar araştırması: 'have been exploring'. Örnek: Bu çeyrekte yeni pazarları araştırıyoruz.\nБългарски: За текущо изследване: 'have been exploring'. Пример: Този триместър проучваме нови пазари." },
+  { q: "She ___ been collaborating with the design team.", a: "has been collaborating", options: ["has been collaborating","have been collaborating","collaborates"], exp: "Ongoing collaboration: 'has been collaborating'. Example: She has been collaborating with the design team.\nTürkçesi: Sürekli iş birliği: 'has been collaborating'. Örnek: Tasarım ekibiyle iş birliği yapıyor.\nБългарски: За текущо сътрудничество: 'has been collaborating'. Пример: Тя си сътрудничи с екипа за дизайн." },
+  { q: "They ___ been monitoring the situation closely.", a: "have been monitoring", options: ["have been monitoring","has been monitoring","monitor"], exp: "Continuous monitoring: 'have been monitoring'. Example: They have been monitoring the situation closely.\nTürkçesi: Durumu izleme için: 'have been monitoring'. Örnek: Durumu yakından izliyorlar.\nБългарски: За продължително наблюдение: 'have been monitoring'. Пример: Те наблюдават ситуацията внимателно." },
+  { q: "He ___ been considering your proposal carefully.", a: "has been considering", options: ["has been considering","have been considering","considers"], exp: "Careful thought over time: 'has been considering'. Example: He has been considering your proposal carefully.\nTürkçesi: Düşünce süreci: 'has been considering'. Örnek: Önerinizi dikkatlice değerlendiriyor.\nБългарски: За обмисляне в течение на време: 'has been considering'. Пример: Той разглежда вашето предложение внимателно." }
+
+];
+
+
+
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
