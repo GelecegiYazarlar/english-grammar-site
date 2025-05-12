@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Simple Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Present Simple Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+      { q: "She ___ to school every day.", a: "goes", options: ["go","goes","going"], exp: "We add 's' for he/she/it: 'go' → 'goes'. Example: She goes to school every day.\nTürkçesi: 'She' için fiile '-s' ekleriz: 'go' → 'goes'. Örnek: O her gün okula gider.\nБългарски: Добавяме '-s' при he/she/it: 'go' → 'goes'. Пример: Тя отива на училище всеки ден." },
+      { q: "I usually ___ coffee in the morning.", a: "drink", options: ["drinks","drink","drank"], exp: "With 'I', use base form: 'drink'. Example: I drink coffee every morning.\nTürkçesi: 'I' ile fiil yalın: 'drink'. Örnek: Sabahları kahve içerim.\nБългарски: С 'I' gлаголът остава 'drink'. Пример: Пия кафе сутрин." },
+      { q: "They ___ football on Sundays.", a: "play", options: ["plays","playing","play"], exp: "Plural subjects use base form: 'play'. Example: They play football on Sundays.\nTürkçesi: Çoğul özneler fiili yalın: 'play'. Örnek: Onlar pazar günü futbol oynar.\nБългарски: Mножествено число: 'play'. Пример: Те играят футбол в неделя." },
+      { q: "He ___ his homework after dinner.", a: "does", options: ["do","does","doing"], exp: "He/she/it changes 'do' to 'does'. Example: He does his homework after dinner.\nTürkçesi: He ile 'do' → 'does'. Örnek: O akşam yemeğinden sonra ödevini yapar.\nБългарски: За 'he' → 'does'. Пример: Той прави домашното си след вечеря." },
+      { q: "We ___ in a small town.", a: "live", options: ["lives","live","living"], exp: "'We' uses base form: 'live'. Example: We live in a small town.\nTürkçesi: 'We' ile fiil yalın: 'live'. Örnek: Küçük bir kasabada yaşarız.\nБългарски: 'We' → 'live'. Пример: Ние живеем в малък град." },
+      { q: "My brother ___ very fast.", a: "runs", options: ["run","runs","running"], exp: "Third person singular adds 's': 'run' → 'runs'. Example: My brother runs very fast.\nTürkçesi: Tekil üçüncü şahıs: 'runs'. Örnek: Erkek kardeşim çok hızlı koşar.\nБългарски: 'run' → 'runs'. Пример: Брат ми тича много бързо." },
+      { q: "The company ___ a new product line every year.", a: "launches", options: ["launch","launches","launched"], exp: "We add 'es' for verbs ending with -ch/-sh/-s: 'launch' → 'launches'. Example: The company launches a new product line every year.\nTürkçesi: Bu fiillerde '-es' ekleriz: 'launch' → 'launches'. Örnek: Şirket her yıl yeni bir ürün serisi piyasaya sürer.\nБългарски: При глаголи на -ch/-sh/-s добавяме '-es': 'launch' → 'launches'. Пример: Компанията пуска нов продуктов асортимент всяка година." },
+        { q: "The company ___ a new product line every year.", a: "launches", options: ["launch","launches","launched"], exp: "We add 'es' for verbs ending with -ch/-sh/-s: 'launch' → 'launches'. Example: The company launches a new product line every year.\nTürkçesi: Bu fiillerde '-es' ekleriz: 'launch' → 'launches'. Örnek: Şirket her yıl yeni bir ürün serisi piyasaya sürer.\nБългарски: При глаголи на -ch/-sh/-s добавяме '-es': 'launch' → 'launches'. Пример: Компанията пуска нов продуктов асортимент всяка година." },
+  { q: "She rarely ___ seafood because she's allergic.", a: "eats", options: ["eat","eats","eating"], exp: "With third person singular, we add 's': 'eat' → 'eats'. 'Rarely' is an adverb of frequency and doesn't affect form. Example: She rarely eats seafood because she's allergic.\nTürkçesi: Tekil üçüncü şahıs için '-s' ekleriz: 'eat' → 'eats'. 'Rarely' fiilin formunu etkilemez. Örnek: O alerjisi olduğu için nadiren deniz ürünü yer.\nБългарски: За трето лице единствено прибавяме '-s': 'eat' → 'eats'. 'Rarely' не променя формата на глагола. Пример: Тя рядко яде морски дарове, защото е алергична." },
+  { q: "How often ___ you wash your car?", a: "do", options: ["do","does","are"], exp: "Questions in present simple use 'do' for I/you/we/they: 'do you wash'. Example: How often do you wash your car?\nTürkçesi: Present simple soru 'you' ile 'do' kullanılır: 'do you wash'. Örnek: Arabanı ne sıklıkla yıkarsın?\nБългарски: При въпроси използваме 'do' за 'you': 'do you wash'. Пример: Колко често си миеш колата?" },
+  { q: "My parents ___ abroad twice a year.", a: "travel", options: ["travels","travel","traveling"], exp: "Plural subjects use the base form: 'travel'. Example: My parents travel abroad twice a year.\nTürkçesi: Çoğul özneler fiilin yalın halini kullanır: 'travel'. Örnek: Ebeveynlerim yılda iki kez yurt dışına seyahat eder.\nБългарски: Множествено число използва основна форма: 'travel'. Пример: Родителите ми пътуват в чужбина два пъти годишно." },
+  { q: "There ___ a lot of traffic on the roads in the morning.", a: "is", options: ["is","are","were"], exp: "'There is' for singular or uncountable; 'traffic' is uncountable. Example: There is a lot of traffic on the roads in the morning.\nTürkçesi: 'There is' çoğul olmayan ya da sayılamayan isimlerle kullanılır: 'traffic' sayılamaz. Örnek: Sabahleyin yollarda çok fazla trafik olur.\nБългарски: 'There is' се използва с неизброими съществителни: 'traffic'. Пример: Сутрин на пътищата има много трафик." },
+  { q: "Every evening, he ___ the news on TV.", a: "watches", options: ["watches","watch","watched"], exp: "Third person singular requires 's': 'watch' → 'watches'. Example: Every evening, he watches the news on TV.\nTürkçesi: Tekil üçüncü şahıs '-es' ekler: 'watch' → 'watches'. Örnek: Her akşam televizyonda haber izler.\nБългарски: За 'he' прибавяме '-es': 'watch' → 'watches'. Пример: Всяка вечер той гледа новините по телевизията." },
+  { q: "It seldom ___ in the desert.", a: "rains", options: ["rains","rain","rained"], exp: "For 'it' third person singular add 's': 'rain' → 'rains'. 'Seldom' doesn't change the verb form. Example: It seldom rains in the desert.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'rain' → 'rains'. 'Seldom' formu etkilemez. Örnek: Çölde nadiren yağmur yağar.\nБългарски: За 'it' прибавяме '-s': 'rain' → 'rains'. Пример: В пустинята рядко вали." },
+  { q: "What time ___ the train leave?", a: "does", options: ["do","does","is"], exp: "In questions for he/she/it, use 'does': 'does the train leave'. Example: What time does the train leave?\nTürkçesi: Tekil üçüncü şahıs sorularda 'does' kullanılır: 'does the train leave'. Örnek: Tren saat kaçta kalkar?\nБългарски: При въпроси за трето лице използваме 'does': 'does the train leave'. Пример: В колко часа тръгва влакът?" },
+  { q: "Lisa ___ French very well.", a: "speaks", options: ["speak","speaks","speaking"], exp: "Third person singular: 'speak' → 'speaks'. Example: Lisa speaks French very well.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'speak' → 'speaks'. Örnek: Lisa Fransızcayı çok iyi konuşur.\nБългарски: За 'Lisa' прибавяме '-s': 'speak' → 'speaks'. Пример: Лиза говори френски много добре." },
+  { q: "Cats ___ for long hours.", a: "sleep", options: ["sleep","sleeps","sleeping"], exp: "Plural subjects use base form: 'sleep'. Example: Cats sleep for long hours.\nTürkçesi: Çoğul özneler fiili yalın kullanır: 'sleep'. Örnek: Kediler uzun saatler uyur.\nБългарски: Множествено число: 'sleep'. Пример: Котките спят по дълго време." },
+  { q: "The library ___ at 8 PM.", a: "closes", options: ["closes","close","closing"], exp: "Third person singular: 'close' → 'closes'. Example: The library closes at 8 PM.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'close' → 'closes'. Örnek: Kütüphane saat 8'de kapanır.\nБългарски: За трето лице добавяме '-s': 'close' → 'closes'. Пример: Библиотеката затваря в 20:00." },
+  { q: "Every month, he ___ his bank statements.", a: "checks", options: ["check","checks","checking"], exp: "Third person singular: 'check' → 'checks'. Example: Every month, he checks his bank statements.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'check' → 'checks'. Örnek: Her ay banka hesap özetlerini kontrol eder.\nБългарски: За 'he' прибавяме '-s': 'check' → 'checks'. Пример: Всяки месец той проверява банковите си извлечения." },
+  { q: "Why ___ they always late?", a: "are", options: ["do","are","have"], exp: "When asking about states, use 'be': 'are they'. Example: Why are they always late?\nTürkçesi: Durum sorularında 'be' kullanılır: 'are they'. Örnek: Neden her zaman geç kalırlar?\nБългарски: При въпроси за състояние се използва 'are': 'are they'. Пример: Защо те винаги закъсняват?" },
+  { q: "The committee ___ the final report next week.", a: "publishes", options: ["publish","publishes","is publishing"], exp: "Present simple can express scheduled events: 'publish' → 'publishes'. Example: The committee publishes the final report next week.\nTürkçesi: Plan anlamı taşıyan present simple: 'publish' → 'publishes'. Örnek: Komite gelecek hafta son raporu yayınlar.\nБългарски: Present Simple може да покаже насрочени събития: 'publish' → 'publishes'. Пример: Комисията публикува крайния доклад следващата седмица." },
+  { q: "No one ever ___ to that artist's concerts.", a: "goes", options: ["go","goes","went"], exp: "Third person singular with 'no one': 'go' → 'goes'. Example: No one ever goes to that artist's concerts.\nTürkçesi: 'No one' tekil olduğu için '-s' ekleriz: 'go' → 'goes'. Örnek: Hiç kimse o sanatçının konserlerine gitmez.\nБългарски: 'No one' е в ед. число, добавяме '-s': 'go' → 'goes'. Пример: Никой не ходи на концертите на този артист." },
+  { q: "Jessica ___ her mother exactly.", a: "resembles", options: ["resembles","resemble","resembling"], exp: "Third person singular: 'resemble' → 'resembles'. Example: Jessica resembles her mother exactly.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'resemble' → 'resembles'. Örnek: Jessica annesine tıpatıp benzer.\nБългарски: За 'Jessica' прибавяме '-s': 'resemble' → 'resembles'. Пример: Джесика прилича точно на майка си." },
+  { q: "He usually ___ up at 6:30 on weekdays.", a: "gets", options: ["gets","get","getting"], exp: "Phrasal verb 'get up': third person singular adds 's': 'get' → 'gets'. Example: He usually gets up at 6:30 on weekdays.\nTürkçesi: 'Get up' fiilinde 'get' için '-s': 'gets'. Örnek: Hafta içi genellikle 6:30'da kalkar.\nБългарски: За 'he' добавяме '-s': 'get' → 'gets'. Пример: Обикновено става в 6:30 през делничните дни." },
+  { q: "The Earth ___ around the Sun.", a: "revolves", options: ["revolve","revolves","revolving"], exp: "Third person singular: 'revolve' → 'revolves'. Example: The Earth revolves around the Sun.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'revolve' → 'revolves'. Örnek: Dünya Güneş'in etrafında döner.\nБългарски: За ед. число добавяме '-s': 'revolve' → 'revolves'. Пример: Земята обикаля около Слънцето." },
+  { q: "This paint ___ quickly when exposed to air.", a: "dries", options: ["dries","dry","drying"], exp: "Third person singular: 'dry' → 'dries' (y → ies). Example: This paint dries quickly when exposed to air.\nTürkçesi: 'y' ile biten fiilde 'y' düşer ve 'ies': 'dry' → 'dries'. Örnek: Bu boya havayla temas ettiğinde çabuk kurur.\nБългарски: При глаголи завършващи на 'y' сменяме 'y' → 'ies': 'dry' → 'dries'. Пример: Тази боя изсъхва бързо на въздух." },
+  { q: "His travel agency ___ budget tours.", a: "offers", options: ["offer","offers","offering"], exp: "Third person singular: 'offer' → 'offers'. Example: His travel agency offers budget tours.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'offer' → 'offers'. Örnek: Seyahat acentası uygun fiyatlı turlar sunar.\nБългарски: За 'agency' добавяме '-s': 'offer' → 'offers'. Пример: Туристическата му агенция предлага икономични обиколки." },
+  { q: "Chocolate ___ in hot weather.", a: "melts", options: ["melt","melts","melting"], exp: "Third person singular: 'melt' → 'melts'. Example: Chocolate melts in hot weather.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'melt' → 'melts'. Örnek: Çikolata sıcak havada erir.\nБългарски: За ед. число добавяме '-s': 'melt' → 'melts'. Пример: Шоколадът се разтапя в горещо време." },
+  { q: "The shop ___ at 9 AM sharp.", a: "opens", options: ["open","opens","opened"], exp: "Third person singular: 'open' → 'opens'. Example: The shop opens at 9 AM sharp.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'open' → 'opens'. Örnek: Mağaza tam olarak sabah 9'da açılır.\nБългарски: За 'shop' в ед. число добавяме '-s': 'open' → 'opens'. Пример: Магазинът отваря точно в 9 сутринта." },
+  { q: "Every morning, she ___ quiet time to meditate.", a: "takes", options: ["take","takes","taking"], exp: "Third person singular: 'take' → 'takes'. Example: Every morning, she takes quiet time to meditate.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'take' → 'takes'. Örnek: Her sabah meditasyon yapmak için sessiz zaman ayırır.\nБългарски: За 'she' добавяме '-s': 'take' → 'takes'. Пример: Всяка сутрин отделя тихо време за медитация." },
+  { q: "Tom often ___ his friends after work.", a: "meets", options: ["meet","meets","meeting"], exp: "Third person singular: 'meet' → 'meets'. Example: Tom often meets his friends after work.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'meet' → 'meets'. Örnek: Tom sık sık iş çıkışı arkadaşlarıyla buluşur.\nБългарски: За 'Tom' добавяме '-s': 'meet' → 'meets'. Пример: Том често се среща с приятелите си след работа." },
+  { q: "They rarely ___ any help.", a: "need", options: ["needs","need","needing"], exp: "Plural subjects use base form: 'need'. Example: They rarely need any help.\nTürkçesi: Çoğul özneler fiilin yalın halini kullanır: 'need'. Örnek: Nadiren yardıma ihtiyaç duyarlar.\nБългарски: Множествено число използва основна форма: 'need'. Пример: Те рядко имат нужда от помощ." },
+  { q: "My smartphone ___ outdated very fast.", a: "becomes", options: ["becomes","become","becoming"], exp: "Third person singular: 'become' → 'becomes'. Example: My smartphone becomes outdated very fast.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'become' → 'becomes'. Örnek: Akıllı telefonum çok hızlı güncelliğini yitirir.\nБългарски: За 'smartphone' прибавяме '-s': 'become' → 'becomes'. Пример: Моят смартфон много бързо става остарял." },
+  { q: "A healthy diet ___ regular exercise.", a: "includes", options: ["include","includes","including"], exp: "Third person singular: 'include' → 'includes'. Example: A healthy diet includes regular exercise.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'include' → 'includes'. Örnek: Sağlıklı bir diyet düzenli egzersiz içerir.\nБългарски: За ед. число добавяме '-s': 'include' → 'includes'. Пример: Здравословната диета включва редовни упражнения." },
+  { q: "Every five years, he ___ his driving license.", a: "renews", options: ["renew","renews","renewing"], exp: "Third person singular: 'renew' → 'renews'. Example: Every five years, he renews his driving license.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'renew' → 'renews'. Örnek: Her beş yılda ehliyetini yeniler.\nБългарски: За 'he' прибавяме '-s': 'renew' → 'renews'. Пример: На всеки пет години той подновява шофьорската си книжка." },
+  { q: "Water ___ at 100°C.", a: "boils", options: ["boil","boils","boiling"], exp: "Third person singular: 'boil' → 'boils'. Example: Water boils at 100°C.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'boil' → 'boils'. Örnek: Su 100°C'de kaynar.\nБългарски: За ед. число добавяме '-s': 'boil' → 'boils'. Пример: Водата кипи при 100°C." },
+  { q: "The play ___ at 7 PM every Friday.", a: "starts", options: ["start","starts","starting"], exp: "Third person singular: 'start' → 'starts'. Example: The play starts at 7 PM every Friday.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'start' → 'starts'. Örnek: Oyun her Cuma akşamı saat 7'de başlar.\nБългарски: За ед. число добавяме '-s': 'start' → 'starts'. Пример: Пиесата започва в 19:00 всяка петък." }
+    ];
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
