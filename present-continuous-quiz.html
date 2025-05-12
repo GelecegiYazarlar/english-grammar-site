@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Present Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+	  { q: "He ___ in London since 2010.", a: "has", options: ["have","has","had"], exp: "Present perfect uses 'have/has' + past participle. For third person singular use 'has': 'has lived'. Example: He has lived in London since 2010.\nTürkçesi: Present perfect için 'have/has' + fiilin 3. hali kullanılır. Üçüncü tekil şahıs için 'has': 'has lived'. Örnek: O, 2010'dan beri Londra'da yaşıyor.\nБългарски: За present perfect се използва 'have/has' + мин. причастие. За трето лице единствено - 'has': 'has lived'. Пример: Той живее в Лондон от 2010 г." },
+  { q: "They ___ already watched that movie.", a: "have", options: ["have","has","did"], exp: "Use 'have' with plural subjects in present perfect: 'have watched'. Example: They have already watched that movie.\nTürkçesi: Çoğul özneler için 'have' + fiilin 3. hali: 'have watched'. Örnek: Onlar o filmi zaten izledi.\nБългарски: За множествено число се използва 'have' + мин. причастие: 'have watched'. Пример: Те вече са гледали този филм." },
+  { q: "I ___ never eaten sushi before.", a: "have", options: ["have","has","had"], exp: "Present perfect ile tecrübe cümlesi: 'have' + past participle. Example: I have never eaten sushi before.\nTürkçesi: Tecrübe bildiren cümlede 'have' + fiilin 3. hali. Örnek: Daha önce hiç suşi yemedim.\nБългарски: В изречение за опит в present perfect: 'have' + мин. причастие. Пример: Никога не съм ял суши досега." },
+  { q: "___ you ever visited Japan?", a: "Have", options: ["Have","Has","Did"], exp: "Wh-sorularda yardımcı fiil present perfect için 'have/has': 'Have you ...'? Example: Have you ever visited Japan?\nTürkçesi: Wh-sorularda present perfect yardımcı fiili 'have/has'. Örnek: Hiç Japonya'yı ziyaret ettin mi?\nБългарски: В wh-въпрос в present perfect помощният глагол е 'have/has': 'Have you ever...'? Пример: Посещавал ли си някога Япония?" },
+  { q: "She ___ just finished her assignment.", a: "has", options: ["have","has","is"], exp: "Adverb 'just' ile present perfect: 'has just finished'. Example: She has just finished her assignment.\nTürkçesi: 'Just' ile present perfect: 'has just finished'. Örnek: O, ödevini yeni bitirdi.\nБългарски: С 'just' в present perfect: 'has just finished'. Пример: Тя току-що завърши задачата си." },
+  { q: "We ___ already submitted our report.", a: "have", options: ["have","has","did"], exp: "Zaman zarfı 'already' ile present perfect: 'have already submitted'. Example: We have already submitted our report.\nTürkçesi: 'Already' ile present perfect: 'have already submitted'. Örnek: Raporumuzu zaten teslim ettik.\nБългарски: С 'already' в present perfect: 'have already submitted'. Пример: Вече сме подали доклада си." },
+  { q: "It ___ rained here this month.", a: "has", options: ["have","has","did"], exp: "Zaman zarfı 'this month' ile present perfect: 'has rained'. Example: It has rained here this month.\nTürkçesi: 'This month' ile present perfect: 'has rained'. Örnek: Bu ay burada yağmur yağdı.\nБългарски: С 'this month' в present perfect: 'has rained'. Пример: Този месец тук е валяло." },
+  { q: "He ___ not yet replied to my email.", a: "has", options: ["have","has","had"], exp: "Olumsuz present perfect: 'has not replied'. 'Yet' genellikle cümle sonuna gelir. Example: He has not yet replied to my email.\nTürkçesi: Olumsuz present perfect: 'has not replied'. 'Yet' cümle sonunda. Örnek: Henüz e-postama cevap vermedi.\nБългарски: Отрицателно present perfect: 'has not replied'. 'Yet' обикновено е в края на изречението. Пример: Той все още не е отговорил на имейла ми." },
+  { q: "They ___ traveled to more than 20 countries.", a: "have", options: ["have","has","are"], exp: "Present perfect for deneyim: 'have traveled'. Example: They have traveled to more than 20 countries.\nTürkçesi: Tecrübe için present perfect: 'have traveled'. Örnek: 20'den fazla ülkeyi gezdiler.\nБългарски: За опит в present perfect: 'have traveled'. Пример: Те са пътували до повече от 20 държави." },
+  { q: "The company ___ launched three products this year.", a: "has", options: ["have","has","did"], exp: "Tekil kurum öznesiyle 'has launched'. Example: The company has launched three products this year.\nTürkçesi: Tekil özneler için 'has launched'. Örnek: Şirket bu yıl üç ürün piyasaya sürdü.\nБългарски: За трето лице единствено: 'has launched'. Пример: Компанията пусна три продукта тази година." },
+  { q: "We ___ known each other for years.", a: "have", options: ["have","has","had"], exp: "Present perfect ile süre zarfı 'for': 'have known'. Example: We have known each other for years.\nTürkçesi: 'For' ile present perfect: 'have known'. Örnek: Yıllardır birbirimizi tanıyoruz.\nБългарски: С 'for' в present perfect: 'have known'. Пример: Познаваме се от години." },
+  { q: "The board ___ made its decision.", a: "has", options: ["have","has","did"], exp: "Tekil 'board' öznesiyle 'has made'. Example: The board has made its decision.\nTürkçesi: Kurum isimleri tekil kabul edilerek 'has made'. Örnek: Yönetim kurulu kararını verdi.\nБългарски: За колективно съществително в ед. число: 'has made'. Пример: Управителният съвет взе своето решение." },
+  { q: "___ she completed the training program?", a: "Has", options: ["Have","Has","Did"], exp: "Wh-soru present perfect: 'Has she ...?'. Example: Has she completed the training program?\nTürkçesi: Wh-sorular present perfect'te 'has/ have'. Örnek: Eğitim programını tamamladı mı?\nБългарски: Wh-въпрос в present perfect: 'Has she ...?'. Пример: Тя завърши ли обучителната програма?" },
+  { q: "I ___ just realized my mistake.", a: "have", options: ["have","has","had"], exp: " 'Just' ile present perfect: 'have just realized'. Example: I have just realized my mistake.\nTürkçesi: 'Just' cümle başında/ortasında: 'have just realized'. Örnek: Hatalarımı az önce fark ettim.\nБългарски: С 'just' в present perfect: 'have just realized'. Пример: Току-що осъзнах грешката си." },
+  { q: "They ___ been to the new restaurant yet.", a: "have", options: ["have","has","are"], exp: " 'Yet' negatif cümlelerde, soru ve olumlu 'already'. Here soru değil, ama 'yet' kullanılabilir. Example: They have not been to the new restaurant yet.\nTürkçesi: 'Yet' olumsuz cümlelerde. Örnek: Yeni restorana henüz gitmediler.\nБългарски: 'Yet' за отрицателни изречения. Пример: Те все още не са били в новия ресторант." },
+  { q: "He ___ improved his performance since last quarter.", a: "has", options: ["have","has","had"], exp: " 'Since' zaman zarfı ile: 'has improved'. Example: He has improved his performance since last quarter.\nTürkçesi: 'Since' ile present perfect: 'has improved'. Örnek: Geçen çeyrekten bu yana performansını geliştirdi.\nБългарски: С 'since' в present perfect: 'has improved'. Пример: Той подобри представянето си от последното тримесечие." },
+  { q: "We ___ not finished the project yet.", a: "have", options: ["have","has","had"], exp: "Olumsuz present perfect: 'have not finished'. 'Yet' cümle sonunda. Example: We have not finished the project yet.\nTürkçesi: Olumsuz present perfect: 'have not finished'. Örnek: Projeyi henüz bitirmedik.\nБългарски: Отрицателно present perfect: 'have not finished'. Пример: Все още не сме завършили проекта." },
+  { q: "The team ___ won five matches this season.", a: "has", options: ["have","has","did"], exp: "Tekil 'team' öznesiyle 'has won'. Example: The team has won five matches this season.\nTürkçesi: Kolektif özne tekil sayılır: 'has won'. Örnek: Takım bu sezon beş maç kazandı.\nБългарски: За колективно съществително: 'has won'. Пример: Отборът е спечелил пет мача този сезон." },
+  { q: "You ___ accomplished a lot in a short time.", a: "have", options: ["have","has","did"], exp: "Second person için 'have accomplished'. Example: You have accomplished a lot in a short time.\nTürkçesi: İkinci şahıs için 'have accomplished'. Örnek: Kısa sürede çok şey başardın.\nБългарски: За второ лице: 'have accomplished'. Пример: Постигнал си много за кратко време." },
+  { q: "It ___ been a while since they last met.", a: "has", options: ["have","has","was"], exp: "Dummy subject 'it' ile süre zarfı 'been a while': 'has been'. Example: It has been a while since they last met.\nTürkçesi: 'It has been a while since...'. Örnek: Onların en son buluşmalarından beri uzun zaman geçti.\nБългарски: С 'it has been a while since...'. Пример: От последната им среща мина доста време." },
+  { q: "I ___ forgotten to send the invoice.", a: "have", options: ["have","has","had"], exp: "Present perfect ile unutma: 'have forgotten'. Example: I have forgotten to send the invoice.\nTürkçesi: Unutma eylemi present perfect: 'have forgotten'. Örnek: Faturayı göndermeyi unuttum.\nБългарски: При забрава: 'have forgotten'. Пример: ЗАБРАВИХ ДА ИЗПРАТЯ ФАКТУРАТА." },
+  { q: "___ you ever driven a sports car?", a: "Have", options: ["Have","Has","Did"], exp: "Wh-soru tecrübe: 'Have you ever driven...?'. Example: Have you ever driven a sports car?\nTürkçesi: Tecrübe sorusunda 'Have you ever...?'. Örnek: Hiç spor araba sürdün mü?\nБългарски: За опит в въпрос: 'Have you ever...?'. Пример: Карал ли си някога спортна кола?" },
+  { q: "She ___ visited the Louvre multiple times.", a: "has", options: ["have","has","did"], exp: "Present perfect ile tekrar vurgusu: 'has visited'. Example: She has visited the Louvre multiple times.\nTürkçesi: Tekrar vurgusu için 'has visited'. Örnek: O, Louvre'u defalarca ziyaret etti.\nБългарски: За повторение в present perfect: 'has visited'. Пример: Тя е посетила Лувъра няколко пъти." },
+  { q: "We ___ experienced similar challenges before.", a: "have", options: ["have","has","had"], exp: "Present perfect for past experience: 'have experienced'. Example: We have experienced similar challenges before.\nTürkçesi: Geçmiş deneyim: 'have experienced'. Örnek: Daha önce benzer zorluklarla karşılaştık.\nБългарски: За минал опит: 'have experienced'. Пример: Преди сме имали подобни предизвикателства." },
+  { q: "He ___ not seen such a performance until now.", a: "has", options: ["have","has","did"], exp: "Olumsuz present perfect: 'has not seen'. 'Until now' ile kullanılır. Example: He has not seen such a performance until now.\nTürkçesi: 'Until now' ile olumsuz present perfect: 'has not seen'. Örnek: Şimdiye kadar böyle bir performans görmedi.\nБългарски: 'Until now' с отрицателно present perfect: 'has not seen'. Пример: До сега не е виждал такова изпълнение." },
+  { q: "They ___ collected enough data for the study.", a: "have", options: ["have","has","did"], exp: "Present perfect ile tamamlanmış eylem: 'have collected'. Example: They have collected enough data for the study.\nTürkçesi: 'Have collected' ile tamamlanmış eylem. Örnek: Çalışma için yeterli veriyi topladılar.\nБългарски: За завършено действие: 'have collected'. Пример: Те са събрали достатъчно данни за изследването." },
+  { q: "The CEO ___ addressed the issue in his latest speech.", a: "has", options: ["have","has","did"], exp: "Tekil üçüncü şahıs için 'has addressed'. Example: The CEO has addressed the issue in his latest speech.\nTürkçesi: 'Has addressed' tekil özneler için. Örnek: CEO son konuşmasında bu konuyu ele aldı.\nБългарски: За трето лице единствено: 'has addressed'. Пример: Изпълнителният директор се е обърнал към въпроса в последната си реч." },
+  { q: "I ___ completed five tasks today.", a: "have", options: ["have","has","did"], exp: "Zaman zarfı 'today' ile present perfect: 'have completed'. Example: I have completed five tasks today.\nTürkçesi: 'Today' ile present perfect: 'have completed'. Örnek: Bugün beş görev tamamladım.\nБългарски: С 'today' в present perfect: 'have completed'. Пример: Днес съм завършил пет задачи." },
+  { q: "We ___ been waiting here for two hours.", a: "have", options: ["have","has","are"], exp: "Present perfect continuous/ simple with 'for': 'have been waiting'. But simple: 'have been'. Example: We have been waiting here for two hours.\nTürkçesi: 'For' ile bekleme durumu: 'have been waiting'. Örnek: İki saattir burada bekliyoruz.\nБългарски: С 'for' в present perfect continuous/simple: 'have been waiting'. Пример: Чакаме тук от два часа." },
+  { q: "The researchers ___ published their findings in a renowned journal.", a: "have", options: ["have","has","did"], exp: "Present perfect ile tamamlanmış eylem: 'have published'. Example: The researchers have published their findings in a renowned journal.\nTürkçesi: 'Have published' ile tamamlanmış eylem. Örnek: Araştırmacılar bulgularını tanınmış bir dergide yayımladı.\nБългарски: За завършено действие: 'have published'. Пример: Изследователите са публикували своите открития в реномирано списание." }
+];
+
+
+
+
+
+
+Şunu dedin:
+present continous içinde aynı şekilde devam
+
+
+ChatGPT:
+
+21 saniye için düşündüm
+javascript
+Kopyala
+Düzenle
+const questions = [
+  { q: "She ___ on a new project this week.", a: "is working", options: ["works","is working","working"], exp: "Present continuous uses am/is/are + verb-ing for ongoing actions: 'is working'. Example: She is working on a new project this week.\nTürkçesi: Şu anda devam eden eylemler için 'am/is/are + fiil-ing' kullanılır: 'is working'. Örnek: Bu hafta yeni bir proje üzerinde çalışıyor.\nБългарски: За текущи действия използваме 'am/is/are + сегашно причастие': 'is working'. Пример: Тя работи по нов проект тази седмица." },
+  { q: "They ___ dinner right now.", a: "are having", options: ["have","are having","having"], exp: "Present continuous: 'are having' indicates an action in progress. Example: They are having dinner right now.\nTürkçesi: Şu anda devam eden eylem için 'are having'. Örnek: Şu anda akşam yemeği yiyorlar.\nБългарски: За действие в ход използваме 'are having'. Пример: Те вечерят в момента." },
+  { q: "I ___ to the radio at the moment.", a: "am listening", options: ["listen","am listening","listening"], exp: "Present continuous: 'am listening' shows present activity. Example: I am listening to the radio at the moment.\nTürkçesi: Şu an yaptığınız eylem için 'am listening'. Örnek: Şu anda radyoyu dinliyorum.\nБългарски: За настоящо действие: 'am listening'. Пример: В момента слушам радио." },
+  { q: "We ___ for the exam all day.", a: "are studying", options: ["study","are studying","studying"], exp: "Present continuous for prolonged action: 'are studying'. Example: We are studying for the exam all day.\nTürkçesi: Gün boyu süren eylem için 'are studying'. Örnek: Bütün gün sınava çalışıyoruz.\nБългарски: За продължително действие: 'are studying'. Пример: Цял ден учим за изпита." },
+  { q: "He ___ in the garden right now.", a: "is planting", options: ["plants","is planting","planting"], exp: "Present continuous: 'is planting' describes the action in progress. Example: He is planting in the garden right now.\nTürkçesi: Şu anda bahçede yaptığı eylem: 'is planting'. Örnek: Şu anda bahçede bitki dikiyor.\nБългарски: За текущо действие: 'is planting'. Пример: Той сее в градината в момента." },
+  { q: "Why ___ you ___ your presentation slides?", a: "are you updating", options: ["do you update","are you updating","will you update"], exp: "Wh-question in present continuous: 'are you updating' + verb-ing. Example: Why are you updating your presentation slides?\nTürkçesi: Wh-soru ve present continuous: 'are you updating'. Örnek: Slaytlarını neden güncelliyorsun?\nБългарски: Wh-въпрос в сегашно продължително време: 'are you updating'. Пример: Защо актуализираш презентационните си слайдове?" },
+  { q: "The children ___ TV in the living room.", a: "are watching", options: ["watch","are watching","watched"], exp: "Present continuous: 'are watching' for an ongoing action. Example: The children are watching TV in the living room.\nTürkçesi: Devam eden eylem için 'are watching'. Örnek: Çocuklar salonda TV izliyor.\nБългарски: За текущо действие: 'are watching'. Пример: Децата гледат телевизия в хола." },
+  { q: "She ___ her new book these days.", a: "is writing", options: ["writes","is writing","writing"], exp: "Present continuous: 'is writing' for a current project. Example: She is writing her new book these days.\nTürkçesi: Şu günlerde devam eden eylem: 'is writing'. Örnek: Bu sıralar yeni kitabını yazıyor.\nБългарски: За текущ проект: 'is writing'. Пример: Тя пише новата си книга тези дни." },
+  { q: "The team ___ the presentation tomorrow evening.", a: "is rehearsing", options: ["rehearse","is rehearsing","are rehearsing"], exp: "Present continuous for a planned near-future event: 'is rehearsing'. Example: The team is rehearsing the presentation tomorrow evening.\nTürkçesi: Yakın gelecekte planlı eylemler için present continuous: 'is rehearsing'. Örnek: Takım yarın akşam sunumu prova ediyor.\nБългарски: За планирано бъдещо действие: 'is rehearsing'. Пример: Отборът репетира презентацията утре вечер." },
+  { q: "I ___ a new language these days.", a: "am learning", options: ["learn","am learning","learning"], exp: "Present continuous for developing skill: 'am learning'. Example: I am learning a new language these days.\nTürkçesi: Becerinin gelişimini anlatırken present continuous: 'am learning'. Örnek: Bu aralar yeni bir dil öğreniyorum.\nБългарски: За развитие на умение: 'am learning'. Пример: Тези дни уча нов език." },
+  { q: "It ___ raining cats and dogs now.", a: "is raining", options: ["rains","is raining","will rain"], exp: "Present continuous for weather happening now: 'is raining'. Example: It is raining cats and dogs now.\nTürkçesi: Şu anda olan hava durumu için 'is raining'. Örnek: Şu anda bardaktan boşanırcasına yağıyor.\nБългарски: За текуща прогноза: 'is raining'. Пример: В момента вали котки и кучета." },
+  { q: "What ___ they ___ at 8 PM?", a: "are they doing", options: ["do they do","are they doing","will they do"], exp: "Wh-question in present continuous: 'are they doing'. Example: What are they doing at 8 PM?\nTürkçesi: Wh-soru ve present continuous: 'are they doing'. Örnek: Akşam saat 8'de ne yapıyorlar?\nБългарски: Wh-въпрос в сегашно продължително време: 'are they doing'. Пример: Какво ще правят в 8 часа вечерта?" },
+  { q: "John ___ at the gym twice this week.", a: "is going", options: ["goes","is going","went"], exp: "Present continuous for repeated action around present: 'is going'. Example: John is going to the gym twice this week.\nTürkçesi: Yakın tekrarlar için present continuous: 'is going'. Örnek: John bu hafta iki kez spor salonuna gidiyor.\nБългарски: За повторения около настоящия момент: 'is going'. Пример: Джон ходи на фитнес два пъти тази седмица." },
+  { q: "We ___ our main office next month.", a: "are relocating", options: ["relocate","are relocating","will relocate"], exp: "Present continuous for arranged future: 'are relocating'. Example: We are relocating our main office next month.\nTürkçesi: Planlı gelecek eylemleri anlatmak için present continuous: 'are relocating'. Örnek: Gelecek ay genel merkezimizi taşıyoruz.\nБългарски: За уредено бъдеще: 'are relocating'. Пример: Следващия месец ще преместваме главния ни офис." },
+  { q: "The company ___ its website currently.", a: "is redesigning", options: ["redesigns","is redesigning","has redesigned"], exp: "Present continuous: 'is redesigning' for an ongoing project. Example: The company is redesigning its website currently.\nTürkçesi: Devam eden proje için 'is redesigning'. Örnek: Şu anda şirket web sitesini yeniden tasarlıyor.\nБългарски: За текущ проект: 'is redesigning'. Пример: Компанията в момента преработва уебсайта си." },
+  { q: "Why ___ she ___ that jacket?", a: "is she wearing", options: ["does she wear","is she wearing","will she wear"], exp: "Wh-question in present continuous: 'is she wearing'. Example: Why is she wearing that jacket?\nTürkçesi: Wh-soru ve present continuous: 'is she wearing'. Örnek: Neden o ceketi giyiyor?\nБългарски: Wh-въпрос в сегашно продължително време: 'is she wearing'. Пример: Защо тя носи това яке?" },
+  { q: "The population ___ gradually in recent years.", a: "is increasing", options: ["increases","is increasing","has increased"], exp: "Present continuous for trend: 'is increasing'. Example: The population is increasing gradually in recent years.\nTürkçesi: Eğilimleri anlatırken present continuous: 'is increasing'. Örnek: Son yıllarda nüfus yavaş yavaş artıyor.\nБългарски: За тенденции: 'is increasing'. Пример: Населението постепенно нараства през последните години." },
+  { q: "People ___ more environmentally conscious now.", a: "are becoming", options: ["become","are becoming","have become"], exp: "Present continuous for changing trends: 'are becoming'. Example: People are becoming more environmentally conscious now.\nTürkçesi: Değişen eğilimler için present continuous: 'are becoming'. Örnek: İnsanlar artık çevreye daha duyarlı hale geliyor.\nБългарски: За променящи се тенденции: 'are becoming'. Пример: Хората стават по-екологично осъзнати сега." },
+  { q: "I ___ with the new software this afternoon.", a: "am getting familiar", options: ["get familiar","am getting familiar","have gotten familiar"], exp: "Present continuous for gradual process: 'am getting familiar'. Example: I am getting familiar with the new software this afternoon.\nTürkçesi: Kademeli süreçler için present continuous: 'am getting familiar'. Örnek: Bu öğleden sonra yeni yazılıma alışıyorum.\nБългарски: За постепенен процес: 'am getting familiar'. Пример: Днес следобед се запознавам с новия софтуер." },
+  { q: "The weather ___ getting colder as autumn approaches.", a: "is getting", options: ["gets","is getting","has gotten"], exp: "Present continuous for evolving situation: 'is getting'. Example: The weather is getting colder as autumn approaches.\nTürкçesi: Değişen durumlar için present continuous: 'is getting'. Örnek: Sonbahar yaklaşırken hava soğuyor.\nБългарски: За развиваща се ситуация: 'is getting'. Пример: Времето става по-студено с приближаването на есента." },
+  { q: "Why ___ it ___ so long to process the application?", a: "is it taking", options: ["does it take","is it taking","will it take"], exp: "Wh-question in present continuous: 'is it taking'. Example: Why is it taking so long to process the application?\nTürkçesi: Wh-soru ve present continuous: 'is it taking'. Örnek: Başvuruyu işlemek neden bu kadar uzun sürüyor?\nБългарски: Wh-въпрос в сегашно продължително време: 'is it taking'. Пример: Защо обработката на заявлението отнема толкова време?" },
+  { q: "You ___ five different roles in this project.", a: "are playing", options: ["play","are playing","have played"], exp: "Present continuous for current involvement: 'are playing'. Example: You are playing five different roles in this project.\nTürkçesi: Şu anki katılım için present continuous: 'are playing'. Örnek: Bu projede beş farklı rol üstleniyorsun.\nБългарски: За текущ ангажимент: 'are playing'. Пример: Ти играеш пет различни роли в този проект." },
+  { q: "They ___ feedback from stakeholders at the moment.", a: "are receiving", options: ["receive","are receiving","have received"], exp: "Present continuous: 'are receiving' indicates current action. Example: They are receiving feedback from stakeholders at the moment.\nTürkçesi: Şu anda devam eden eylem için 'are receiving'. Örnek: Şu anda paydaşlardan geri bildirim alıyorlar.\nБългарски: За действие в ход: 'are receiving'. Пример: В момента получават обратна връзка от заинтересованите страни." },
+  { q: "The market ___ at a steady pace this quarter.", a: "is growing", options: ["grows","is growing","has grown"], exp: "Present continuous for market trend: 'is growing'. Example: The market is growing at a steady pace this quarter.\nTürkçesi: Piyasa eğilimleri için present continuous: 'is growing'. Örnek: Bu çeyrekte piyasa istikrarlı bir hızda büyüyor.\nБългарски: За пазарни тенденции: 'is growing'. Пример: Пазарът расте с устойчиво темпо този триместър." },
+  { q: "We ___ analytics tools to refine our strategy.", a: "are using", options: ["use","are using","have used"], exp: "Present continuous for current strategy: 'are using'. Example: We are using analytics tools to refine our strategy.\nTürkçesi: Şu anda yapılan eylem için 'are using'. Örnek: Stratejimizi geliştirmek için analiz araçları kullanıyoruz.\nБългарски: За текуща дейност: 'are using'. Пример: Използваме аналитични инструменти, за да усъвършенстваме стратегията си." },
+  { q: "The management ___ alternative strategies for the next quarter.", a: "is considering", options: ["considers","is considering","considered"], exp: "Present continuous for deliberation: 'is considering'. Example: The management is considering alternative strategies for the next quarter.\nTürkçesi: Tartışma aşamasında present continuous: 'is considering'. Örnek: Yönetim gelecek çeyrek için alternatif stratejileri değerlendiriyor.\nБългарски: За обсъждане: 'is considering'. Пример: Ръководството обмисля алтернативни стратегии за следващото тримесечие." },
+  { q: "Employees ___ remote work more often these days.", a: "are opting", options: ["opt","are opting","have opted"], exp: "Present continuous for shifting preference: 'are opting'. Example: Employees are opting for remote work more often these days.\nTürkçesi: Tercih değişimlerini anlatırken present continuous: 'are opting'. Örnek: Çalışanlar bu günlerde daha sık uzaktan çalışmayı tercih ediyor.\nБългарски: За промяна на предпочитания: 'are opting'. Пример: Служителите все по-често избират дистанционна работа напоследък." },
+  { q: "He ___ his schedule to accommodate new tasks.", a: "is adjusting", options: ["adjusts","is adjusting","has adjusted"], exp: "Present continuous for ongoing adjustment: 'is adjusting'. Example: He is adjusting his schedule to accommodate new tasks.\nTürkçesi: Sürekli yapılan ayarlama için 'is adjusting'. Örnek: Yeni görevleri karşılamak için programını ayarlıyor.\nБългарски: За продължително коригиране: 'is adjusting'. Пример: Той коригира графика си, за да поеме нови задачи." },
+  { q: "I ___ coffee at the moment.", a: "am drinking", options: ["drink","am drinking","drank"], exp: "Present continuous for current action: 'am drinking'. Example: I am drinking coffee at the moment.\nTürkçesi: Şu anda ne yaptığınızı anlatmak için 'am drinking'. Örnek: Şu anda kahve içiyorum.\nБългарски: За текущо действие: 'am drinking'. Пример: В момента пия кафе." },
+  { q: "They ___ the contract details currently.", a: "are reviewing", options: ["review","are reviewing","have reviewed"], exp: "Present continuous for ongoing review: 'are reviewing'. Example: They are reviewing the contract details currently.\nTürkçesi: Şu anda yapılan eylem için 'are reviewing'. Örnek: Şu anda sözleşme detaylarını gözden geçiriyorlar.\nБългарски: За действие в ход: 'are reviewing'. Пример: Те в момента преглеждат детайлите по договора." }
+    ];
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
