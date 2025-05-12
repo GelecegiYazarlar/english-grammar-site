@@ -155,14 +155,73 @@
   </style>
 </head>
 <body>
-  <h1>📝 Present Simple Quiz</h1>
+  <h1>📝 Future Simple Quiz</h1>
   <div id="quizContainer"></div>
   <button onclick="submitQuiz()">🎯 Submit Quiz</button>
   <div id="results"></div>
   <script>
     const questions = [
-  { q: "The play ___ at 7 PM every Friday.", a: "starts", options: ["start","starts","starting"], exp: "Third person singular: 'start' → 'starts'. Example: The play starts at 7 PM every Friday.\nTürkçesi: Tekil üçüncü şahıs '-s' ekler: 'start' → 'starts'. Örnek: Oyun her Cuma akşamı saat 7'de başlar.\nБългарски: За ед. число добавяме '-s': 'start' → 'starts'. Пример: Пиесата започва в 19:00 всяка петък." }
-    ];
+const questions = [
+  {
+    q: "Unless you invest now, your money ___ significantly by your retirement.",
+    a: "will grow",
+    options: ["grows", "is going to grow", "will grow"],
+    exp: "Future simple ile 'will' + fiilin yalın hali kullanılır: 'will grow'.\nExample: Unless you invest now, your money will grow significantly by your retirement.\nTürkçesi: Gelecek zaman için 'will' + fiilin yalın hali: 'will grow'.\nÖrnek: Şimdi yatırım yapmazsan, paran emekliliğine kadar önemli ölçüde artacak.\nБългарски: За бъдеще време се използва 'will' + инфинитив: 'will grow'.\nПример: Ако не инвестираш сега, парите ти ще нараснат значително до пенсионирането ти."
+  },
+  {
+    q: "What ___ happen if she refuses to participate in the trial?",
+    a: "will happen",
+    options: ["does happen", "will happen", "happens"],
+    exp: "Wh-sorularda yardımcı fiil future simple için 'will' olarak: 'will happen'.\nExample: What will happen if she refuses to participate in the trial?\nTürkçesi: Gelecekteki wh-sorularda 'will' + fiilin yalın hali: 'will happen'.\nÖrnek: Deneye katılmayı reddederse ne olacak?\nБългарски: В wh-въпроси за бъдеще време използваме 'will': 'will happen'.\nПример: Какво ще се случи, ако тя откаже да участва в опитa?"
+  },
+  {
+    q: "I doubt they ___ agree to such unfavorable terms.",
+    a: "will agree",
+    options: ["agree", "will agree", "are going to agree"],
+    exp: "Future simple ile şüphe ifade ederken de 'will' + fiilin yalın hali: 'will agree'.\nExample: I doubt they will agree to such unfavorable terms.\nTürkçesi: Şüphe cümlesinde de 'will' + fiilin yalın hali: 'will agree'.\nÖrnek: Böyle dezavantajlı şartlara katılacaklarını sanmıyorum.\nБългарски: За изразяване на съмнение в бъдеще време също 'will' + инфинитив: 'will agree'.\nПример: Съмнявам се, че ще се съгласят на толкова неблагоприятни условия."
+  },
+  {
+    q: "By the end of this month, she ___ complete the project.",
+    a: "will complete",
+    options: ["completes", "will complete", "is completing"],
+    exp: "Future simple planlanan eylemler için: 'will' + fiilin yalın hali: 'will complete'.\nExample: By the end of this month, she will complete the project.\nTürkçesi: Planlanmış eylemler için 'will' + fiilin yalın hali: 'will complete'.\nÖrnek: Bu ay sonuna kadar projeyi tamamlamış olacak.\nБългарски: За планирани действия в бъдеще време: 'will' + инфинитив: 'will complete'.\nПример: До края на този месец тя ще завърши проекта."
+  },
+  {
+    q: "Should he fail the exam again, he ___ have to repeat the year.",
+    a: "will have",
+    options: ["will have", "would have", "has"],
+    exp: "Koşul cümlesi inversion ile: 'Should he fail...', ana cümlede future simple: 'will have to'.\nExample: Should he fail the exam again, he will have to repeat the year.\nTürkçesi: Tersine çevrilmiş koşul yapısı: 'Should he fail...', ardından 'will have to'.\nÖrnek: Sınavı yeniden kaybederse, yılı tekrarlamak zorunda kalacak.\nБългарски: При инверсия на условното изречение: 'Should he fail...', в главното изречение 'will have to'.\nПример: Ако пак се провали на изпита, ще трябва да повтаря годината."
+  },
+  {
+    q: "No matter how early you set off, you ___ arrive late if there's heavy traffic.",
+    a: "will arrive",
+    options: ["arrive", "will arrive", "would arrive"],
+    exp: "Genel doğrular ve şartlı gelecek için 'will' + fiilin yalın hali: 'will arrive'.\nExample: No matter how early you set off, you will arrive late if there's heavy traffic.\nTürkçesi: Genel geçer koşulda future simple: 'will arrive'.\nÖrnek: Ne kadar erken çıkarsan çık, yoğun trafik varsa geç kalacaksın.\nБългарски: За общи условия и бъдеще време: 'will' + инфинитив. Пример: Колкото и рано да тръгнеш, ако е задръстване, ще закъснееш."
+  },
+  {
+    q: "I promise I ___ never let you down.",
+    a: "will never let",
+    options: ["never let", "will never let", "am never going to let"],
+    exp: "Söz verme yapısında future simple: 'will' + zarf + fiilin yalın hali.\nExample: I promise I will never let you down.\nTürkçesi: Söz verirken 'will never let'.\nÖrnek: Söz veriyorum, seni asla hayal kırıklığına uğratmayacağım.\nБългарски: При обещание в бъдеще време: 'will' + наречие + инфинитив. Пример: Обещавам, че никога няма да те разочаровам."
+  },
+  {
+    q: "Even if they invite me, I ___ not attend the party.",
+    a: "will not attend",
+    options: ["will not attend", "do not attend", "am not attending"],
+    exp: "Güçlü ret ifadelerinde future simple negativa: 'will not' + fiilin yalın hali.\nExample: Even if they invite me, I will not attend the party.\nTürkçesi: Reddetme cümlesinde 'will not attend'.\nÖrnek: Beni davetseler bile partiye katılmayacağım.\nБългарски: При категорично отказване: 'will not' + инфинитив. Пример: Дори и да ме поканят, няма да присъствам на партито."
+  },
+  {
+    q: "Who ___ bear the financial risk if the investment fails?",
+    a: "will bear",
+    options: ["will bear", "bears", "is going to bear"],
+    exp: "Wh-soru future simple için 'will' + fiilin yalın hali.\nExample: Who will bear the financial risk if the investment fails?\nTürkçesi: Wh-sorularda future simple: 'will bear'.\nÖrnek: Yatırım başarısız olursa finansal riski kim üstlenecek?\nБългарски: При wh-въпроси за бъдеще време: 'will' + инфинитив. Пример: Кой ще поеме финансовия риск, ако инвестицията се провали?"
+  },
+  {
+    q: "How ___ you react when you discover the error?",
+    a: "will react",
+    options: ["react", "will react", "would react"],
+    exp: "Gelecek tepki sorularında future simple: 'will react'.\nExample: How will you react when you discover the error?\nTürkçesi: Gelecek soru cümlesinde 'will react'.\nÖrnek: Hatanın farkına vardığında nasıl tepki vereceksin?\nБългарски: При въпроси за бъдеща реакция: 'will' + инфинитив. Пример: Как ще реагираш, когато откриеш грешката?"
+  }    ];
     const container = document.getElementById("quizContainer");
     questions.forEach((q, i) => {
       const div = document.createElement("div");
