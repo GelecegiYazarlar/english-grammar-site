@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Perfect Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Past Perfect Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+	 { q: "By the time we arrived, the meeting ___ already started.", a: "had already started", options: ["already started","had already started","was already starting"], exp: "Past perfect uses 'had' + past participle: 'had started'. Example: By the time we arrived, the meeting had already started.\nTürkçesi: Past perfect için 'had' + fiilin 3. hali kullanılır: 'had started'. Örnek: Biz vardığımızda toplantı çoktan başlamıştı.\nБългарски: За past perfect се използва 'had' + мин. причастие: 'had started'. Пример: Когато пристигнахме, срещата вече беше започнала." },
+  { q: "She realized she ___ left the keys inside.", a: "had left", options: ["left","had left","has left"], exp: "Past perfect ile önce gerçekleşen eylem: 'had left'. Example: She realized she had left the keys inside.\nTürkçesi: Önceki eylemi anlatmak için 'had left'. Örnek: Anahtarları içeride bıraktığını fark etti.\nБългарски: За изразяване на по-ранно действие: 'had left'. Пример: Тя осъзна, че беше оставила ключовете вътре." },
+  { q: "They discovered that the system ___ been updated.", a: "had been updated", options: ["was updated","had been updated","has been updated"], exp: "Past perfect passive: 'had been' + past participle. Example: They discovered that the system had been updated.\nTürkçesi: Edilgen çatıda 'had been' + fiilin 3. hali: 'had been updated'. Örnek: Sistemin güncellendiğini öğrendiler.\nБългарски: За пасив в past perfect: 'had been' + страдателна форма: 'had been updated'. Пример: Откриха, че системата е била актуализирана." },
+  { q: "If he ___ more careful, he wouldn't have made that mistake.", a: "had been", options: ["were","had been","would be"], exp: "Koşul cümlesinin past perfect yapısı: 'had been'. Example: If he had been more careful, he wouldn't have made that mistake.\nTürkçesi: Past perfect ile şart yapısı: 'had been'. Örnek: Daha dikkatli olsaydı bu hatayı yapmazdı.\nБългарски: За условно изречение в past perfect: 'had been'. Пример: Ако беше бил по-внимателен, нямаше да направи тази грешка." },
+  { q: "We had to wait because the train ___ not arrived.", a: "had not arrived", options: ["didn't arrive","hadn't arrived","hasn't arrived"], exp: "Negatif past perfect: 'had not' + past participle. Example: We had to wait because the train had not arrived.\nTürkçesi: Past perfect olumsuzu: 'had not arrived'. Örnek: Tren gelmediği için beklemek zorunda kaldık.\nБългарски: За отрицание в past perfect: 'had not' + причастие: 'had not arrived'. Пример: Трябваше да чакаме, защото влакът не беше пристигнал." },
+  { q: "Only after she ___ the letter did she understand its importance.", a: "had read", options: ["read","had read","was reading"], exp: "Inversion ile past perfect vurgusu: 'had read'. Example: Only after she had read the letter did she understand its importance.\nTürkçesi: Inversion ile past perfect: 'had read'. Örnek: Mektubu okuduktan sonra önemini anladı.\nБългарски: При инверсия: 'had read'. Пример: Само след като беше прочела писмото, разбра колко е важно." },
+  { q: "They regretted that they ___ invested earlier.", a: "had invested", options: ["had invested","invested","have invested"], exp: "Geçmişe yönelik pişmanlık için past perfect: 'had invested'. Example: They regretted that they had invested earlier.\nTürkçesi: Pişmanlık cümlesinde past perfect: 'had invested'. Örnek: Daha önce yatırım yaptıklarına pişman oldular.\nБългарски: За съжаление в миналото: 'had invested'. Пример: Те съжаляваха, че бяха инвестирали по-рано." },
+  { q: "By the time I got home, my parents ___ dinner.", a: "had eaten", options: ["ate","had eaten","were eating"], exp: "Zaman uyumlu past perfect: 'had eaten'. Example: By the time I got home, my parents had eaten dinner.\nTürkçesi: Past perfect ile önceki eylem: 'had eaten'. Örnek: Eve geldiğimde ailem yemeğini yemişti.\nБългарски: За предшестващо действие: 'had eaten'. Пример: Когато се прибрах, родителите ми вече бяха вечеряли." },
+  { q: "He couldn't believe he ___ won the lottery.", a: "had won", options: ["won","had won","has won"], exp: "Duygu ifadesiyle past perfect: 'had won'. Example: He couldn't believe he had won the lottery.\nTürkçesi: Past perfect ile şaşkınlık: 'had won'. Örnek: Piyangoyu kazandığına inanamadı.\nБългарски: За изразяване на изумление: 'had won'. Пример: Той не можеше да повярва, че е спечелил от лотарията." },
+  { q: "The report showed that sales ___ declined drastically before the crash.", a: "had declined", options: ["declined","had declined","were declining"], exp: "Analitik geçmiş için past perfect: 'had declined'. Example: The report showed that sales had declined drastically before the crash.\nTürkçesi: Analiz cümlesinde past perfect: 'had declined'. Örnek: Rapor, çöküşten önce satışların keskin bir şekilde düştüğünü gösterdi.\nБългарски: За анализ на миналото: 'had declined'. Пример: Докладът показа, че продажбите бяха спаднали драстично преди краха." },
+  { q: "She felt better after she ___ taken the medicine.", a: "had taken", options: ["took","had taken","has taken"], exp: "Eylem sırası göstergesi past perfect: 'had taken'. Example: She felt better after she had taken the medicine.\nTürkçesi: Eylem sırasını göstermek için past perfect: 'had taken'. Örnek: İlacı aldıktan sonra kendini daha iyi hissetti.\nБългарски: За показване на ред на действията: 'had taken'. Пример: Тя се почувства по-добре след като беше взела лекарството." },
+  { q: "We realized we ___ met before at a conference.", a: "had met", options: ["met","had met","were meeting"], exp: "Keşif cümlesinde past perfect: 'had met'. Example: We realized we had met before at a conference.\nTürkçesi: Önceden gerçekleşen tanışmayı anlatmak için past perfect: 'had met'. Örnek: Daha önce bir konferansta tanıştığımızı fark ettik.\nБългарски: За откривателно съобщение: 'had met'. Пример: Осъзнахме, че бяхме се срещали преди на конференция." },
+  { q: "They admitted they ___ broken the rules.", a: "had broken", options: ["broke","had broken","have broken"], exp: "İtiraf cümlesi için past perfect: 'had broken'. Example: They admitted they had broken the rules.\nTürkçesi: İtiraf için past perfect: 'had broken'. Örnek: Kuralları çiğnediklerini itiraf ettiler.\nБългарски: За признание в миналото: 'had broken'. Пример: Те признаха, че са нарушили правилата." },
+  { q: "After the storm ___ passed, we ventured outside.", a: "had passed", options: ["passed","had passed","was passing"], exp: "Geçmişteki iki eylem sırası: 'had passed'. Example: After the storm had passed, we ventured outside.\nTürkçesi: İki geçmiş eylem sırasını göstermek için past perfect: 'had passed'. Örnek: Fırtına geçtikten sonra dışarı çıktık.\nБългарски: За две действия в миналото: 'had passed'. Пример: След като бурята беше преминала, излязохме навън." },
+  { q: "He apologized for not attending because he ___ been ill.", a: "had been", options: ["was","had been","has been"], exp: "Geçmişteki sebebi anlatan past perfect: 'had been'. Example: He apologized for not attending because he had been ill.\nTürkçesi: Sebep açıklaması için past perfect: 'had been'. Örnek: Katılamadığı için hasta olduğunu belirtti.\nБългарски: За обяснение на причина в миналото: 'had been'. Пример: Той се извини, че не е присъствал, защото е бил болен." },
+  { q: "By the end of the project, we ___ completed all milestones.", a: "had completed", options: ["completed","had completed","were completing"], exp: "Proje tamamlanmadan önce geçmişi vurgulamak için past perfect: 'had completed'. Example: By the end of the project, we had completed all milestones.\nTürkçesi: Önceki tamamlanmayı göstermek için past perfect: 'had completed'. Örnek: Proje bitiminde tüm kilometre taşlarını tamamlamıştık.\nБългарски: За подчертаване на завършване преди край: 'had completed'. Пример: До края на проекта бяхме завършили всички ключови етапи." },
+  { q: "The committee decided to postpone since they ___ lacked sufficient data.", a: "had lacked", options: ["lacked","had lacked","have lacked"], exp: "Karar gerekçesi için past perfect: 'had lacked'. Example: The committee decided to postpone since they had lacked sufficient data.\nTürkçesi: Karar gerekçesi için past perfect: 'had lacked'. Örnek: Yeterli veriye sahip olmadıkları için ertelemeye karar verdiler.\nБългарски: За обосновка на решение в миналото: 'had lacked'. Пример: Комисията реши да отложи, тъй като им липсваха достатъчно данни." },
+  { q: "She was upset because she ___ failed the exam.", a: "had failed", options: ["failed","had failed","was failing"], exp: "Duygu ve geçmiş eylem için past perfect: 'had failed'. Example: She was upset because she had failed the exam.\nTürkçesi: Geçmişteki başarısızlığı göstermek için past perfect: 'had failed'. Örnek: Sınavı kaybettiği için üzgündü.\nБългарски: За емоция и минало действие: 'had failed'. Пример: Тя беше разстроена, защото беше провалила изпита." },
+  { q: "When we reached the airport, the plane ___ already taken off.", a: "had already taken off", options: ["already took off","had already taken off","was taking off"], exp: "Önceki kalkışı anlatmak için past perfect: 'had taken off'. Example: When we reached the airport, the plane had already taken off.\nTürkçesi: Kalkış geçmişini vurgulamak için past perfect: 'had already taken off'. Örnek: Havaalanına vardığımızda uçak çoktan kalkmıştı.\nБългарски: За опис на предшестващо действие: 'had already taken off'. Пример: Когато стигнахме летището, самолетът вече беше излетял." },
+  { q: "I wish I ___ known about the change earlier.", a: "had known", options: ["knew","had known","have known"], exp: "Keşke dilek cümlesinde past perfect: 'had known'. Example: I wish I had known about the change earlier.\nTürkçesi: Keşke anlamı için past perfect: 'had known'. Örnek: Keşke değişiklikten daha önce haberim olsaydı.\nБългарски: За изразяване на съжаление: 'had known'. Пример: Искаше ми се да бях знаел за промяната по-рано." },
+  { q: "They appreciated that we ___ handled the situation professionally.", a: "had handled", options: ["handled","had handled","have handled"], exp: "Övgü ve geçmiş başarı için past perfect: 'had handled'. Example: They appreciated that we had handled the situation professionally.\nTürkçesi: Başarıyı vurgulamak için past perfect: 'had handled'. Örnek: Durumu profesyonelce yönettiğimizi takdir ettiler.\nБългарски: За похвала на предишно действие: 'had handled'. Пример: Те оцениха, че сме се справили професионално със ситуацията." },
+  { q: "By the time he called, we ___ decided to cancel the trip.", a: "had decided", options: ["decided","had decided","were deciding"], exp: "İki geçmiş olayın sırası için past perfect: 'had decided'. Example: By the time he called, we had decided to cancel the trip.\nTürkçesi: Eylemlerin sırasını göstermek için past perfect: 'had decided'. Örnek: O aradığında seyahati iptal etmeye karar vermiştik.\nБългарски: За две действия в миналото: 'had decided'. Пример: Когато той се обади, бяхме решили да отменим пътуването." },
+  { q: "She remembered that she ___ promised to help.", a: "had promised", options: ["promised","had promised","has promised"], exp: "Geçmişte verilen sözü hatırlamak için past perfect: 'had promised'. Example: She remembered that she had promised to help.\nTürkçesi: Geçmiş sözü hatırlamak için past perfect: 'had promised'. Örnek: Yardım etmeye söz verdiğini hatırladı.\nБългарски: За спомняне на обещание: 'had promised'. Пример: Тя се сети, че беше обещала да помогне." },
+  { q: "After the committee ___ reviewed the proposal, they gave approval.", a: "had reviewed", options: ["reviewed","had reviewed","were reviewing"], exp: "Sıralı geçmiş için past perfect: 'had reviewed'. Example: After the committee had reviewed the proposal, they gave approval.\nTürkçesi: Önceki inceleme için past perfect: 'had reviewed'. Örnek: Komite teklifi inceledikten sonra onay verdi.\nБългарски: За пореден ред в миналото: 'had reviewed'. Пример: След като комитетът беше прегледал предложението, даде одобрение." },
+  { q: "They found out that the server ___ crashed due to overload.", a: "had crashed", options: ["crashed","had crashed","was crashing"], exp: "Neden-sonuç ilişkisi için past perfect: 'had crashed'. Example: They found out that the server had crashed due to overload.\nTürkçesi: Sebep açıklaması için past perfect: 'had crashed'. Örnek: Sunucunun aşırı yük nedeniyle çöktüğünü öğrendiler.\nБългарски: За обяснение на причина: 'had crashed'. Пример: Откриха, че сървърът беше катастрофирал поради претоварване." },
+  { q: "Once he ___ explained the terms, there were no objections.", a: "had explained", options: ["explained","had explained","was explaining"], exp: "İki geçmiş eylemin sırası için past perfect: 'had explained'. Example: Once he had explained the terms, there were no objections.\nTürkçesi: Eylemler sırası için past perfect: 'had explained'. Örnek: Koşulları açıkladıktan sonra kimse itiraz etmedi.\nБългарски: За ред на действия: 'had explained'. Пример: След като беше обяснил условията, нямаше възражения." },
+  { q: "We noticed that the lanterns ___ been extinguished.", a: "had been extinguished", options: ["were extinguished","had been extinguished","have been extinguished"], exp: "Passive past perfect: 'had been' + past participle. Example: We noticed that the lanterns had been extinguished.\nTürkçesi: Edilgen çatıda past perfect: 'had been extinguished'. Örnek: Fenerlerin söndüğünü fark ettik.\nБългарски: За пасив в past perfect: 'had been extinguished'. Пример: Забелязахме, че фенерите бяха угасени." },
+  { q: "She felt anxious because she ___ lost her passport.", a: "had lost", options: ["lost","had lost","has lost"], exp: "Kayıp durumu için past perfect: 'had lost'. Example: She felt anxious because she had lost her passport.\nTürkçesi: Kayıp durumu anlatmak için past perfect: 'had lost'. Örnek: Pasaportunu kaybettiği için endişeliydi.\nБългарски: За загуба: 'had lost'. Пример: Тя се почувства тревожна, защото беше загубила паспорта си." },
+  { q: "He denied that he ___ seen the document before.", a: "had seen", options: ["saw","had seen","has seen"], exp: "Reddetme cümlesi için past perfect: 'had seen'. Example: He denied that he had seen the document before.\nTürkçesi: İnkar cümlesi için past perfect: 'had seen'. Örnek: Belgeyi daha önce gördüğünü reddetti.\nБългарски: За отрицание: 'had seen'. Пример: Той отрече, че е виждал документа преди." },
+  { q: "They weren't aware that the guests ___ arrived early.", a: "had arrived", options: ["arrived","had arrived","have arrived"], exp: "Bilgi eksikliği için past perfect: 'had arrived'. Example: They weren't aware that the guests had arrived early.\nTürkçesi: Farkındalık eksikliği için past perfect: 'had arrived'. Örnek: Misafirlerin erken geldiğinin farkında değillerdi.\nБългарски: За липса на знание: 'had arrived'. Пример: Те не бяха наясно, че гостите са пристигнали по-рано." }
+  
+    ];
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
