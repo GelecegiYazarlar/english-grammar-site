@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Past Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+  
+const questions = [
+ { q: "She _____ dinner when I arrived.", a: "was cooking", options: ["cooked","was cooking","is cooking"], exp: "Past continuous uses 'was/were' + verb-ing for ongoing past actions: 'was cooking'. Example: She was cooking dinner when I arrived.\nTürkçesi: Past continuous, geçmişte devam eden eylemler için 'was/were' + fiil-ing kullanılır: 'was cooking'. Örnek: Geldiğimde yemek pişiriyordu.\nБългарски: Past continuous се използва за действия, продължаващи в миналото, с 'was/were' + герунд: 'was cooking'. Пример: Тя приготвяше вечерята, когато пристигнах." },
+  { q: "They _____ football at 5 pm yesterday.", a: "were playing", options: ["played","were playing","are playing"], exp: "Past continuous for past ongoing activity: 'were playing'. Example: They were playing football at 5 pm yesterday.\nTürkçesi: Geçmişteki devam eden aktiviteler için 'was/were' + fiil-ing: 'were playing'. Örnek: Dün saat 17:00'de futbol oynuyorlardı.\nБългарски: За продължаващо действие в миналото: 'were playing'. Пример: Те играеха футбол в 17:00 вчера." },
+  { q: "What _____ you _____ when the phone rang?", a: "were doing", options: ["did you do","were doing","do you do"], exp: "Wh-soru past continuous: 'were you doing'. Example: What were you doing when the phone rang?\nTürkçesi: Past continuous wh-soruda 'were' + özne + fiil-ing: 'were you doing'. Örnek: Telefon çaldığında ne yapıyordun?\nБългарски: При wh-въпрос в past continuous – 'were you doing'. Пример: Какво правеше, когато звънна телефонът?" },
+  { q: "He _____ to music all evening.", a: "was listening", options: ["listened","was listening","is listening"], exp: "Past continuous for background action: 'was listening'. Example: He was listening to music all evening.\nTürkçesi: Arka plan eylemleri için 'was/were' + fiil-ing: 'was listening'. Örnek: Bütün akşam müzik dinliyordu.\nБългарски: За фонова дейност: 'was listening'. Пример: Той слушаше музика цяла вечер." },
+  { q: "We _____ TV when the lights went out.", a: "were watching", options: ["watched","were watching","are watching"], exp: "Past continuous to describe an interrupted action: 'were watching'. Example: We were watching TV when the lights went out.\nTürkçesi: Kesilen eylemler için 'was/were' + fiil-ing: 'were watching'. Örnek: Işıklar söndüğünde TV izliyorduk.\nБългарски: За прекъснато действие: 'were watching'. Пример: Ние гледахме телевизия, когато светлините угаснаха." },
+  { q: "I _____ a book at that time.", a: "was reading", options: ["read","was reading","am reading"], exp: "Past continuous for ongoing action at a past moment: 'was reading'. Example: I was reading a book at that time.\nTürkçesi: Belirli bir anda devam eden eylem için: 'was reading'. Örnek: O sırada bir kitap okuyordum.\nБългарски: За действие, продължаващо в определен момент: 'was reading'. Пример: Четях книга в този момент." },
+  { q: "While she _____ in the garden, it started to rain.", a: "was working", options: ["worked","was working","works"], exp: "'While' ile kullanıldığında past continuous: 'was working'. Example: While she was working in the garden, it started to rain.\nTürkçesi: 'While' ile geçmişte eş zamanlı iki eylem: 'was working'. Örnek: Bahçede çalışırken yağmur başladı.\nБългарски: С 'while' за едновременно действие: 'was working'. Пример: Докато работеше в градината, заваля." },
+  { q: "Were they _____ games at 3 pm?", a: "playing", options: ["play","played","playing"], exp: "Yes/no soru past continuous: 'were' + özne + fiil-ing: 'playing'. Example: Were they playing games at 3 pm?\nTürkçesi: Past continuous evet/hayır sorusu: 'were' + fiil-ing. Örnek: Saat 15:00'te oyun oynuyorlar mıydı?\nБългарски: При въпрос в past continuous: 'were' + герунд: 'playing'. Пример: Играеха ли игри в 15:00?" },
+  { q: "He _____ when I saw him.", a: "was sleeping", options: ["slept","was sleeping","is sleeping"], exp: "Past continuous for a scene setting: 'was sleeping'. Example: He was sleeping when I saw him.\nTürkçesi: Sahne betimlemesi için: 'was sleeping'. Örnek: Onu gördüğümde uyuyordu.\nБългарски: За опис на сцена: 'was sleeping'. Пример: Той спеше, когато го видях." },
+  { q: "You _____ art class when the accident happened.", a: "were attending", options: ["attended","were attending","attending"], exp: "Past continuous for an action in progress: 'were attending'. Example: You were attending art class when the accident happened.\nTürkçesi: Bir eylemi anlatırken: 'were attending'. Örnek: Kaza olduğunda resim öğretimine gidiyordun.\nБългарські: За действие в ход: 'were attending'. Пример: Посещаваше урок по изкуство, когато стана инцидентът." },
+  { q: "It _____ raining all night.", a: "was raining", options: ["rained","was raining","rains"], exp: "Past continuous for weather: 'was raining'. Example: It was raining all night.\nTürkçesi: Hava durumu anlatımı: 'was raining'. Örnek: Bütün gece yağmur yağıyordu.\nБългарски: За времето: 'was raining'. Пример: Цяла нощ вали." },
+  { q: "The kids _____ quietly in their rooms.", a: "were sleeping", options: ["slept","were sleeping","sleep"], exp: "Background action in past continuous: 'were sleeping'. Example: The kids were sleeping quietly in their rooms.\nTürkçesi: Arka plan eylem: 'were sleeping'. Örnek: Çocuklar odalarında sessizce uyuyorlardı.\nБългарски: За фоново действие: 'were sleeping'. Пример: Децата спяха тихо в стаите си." },
+  { q: "Why _____ she _____ at that strange painting?", a: "was staring", options: ["did she stare","was staring","did she staring"], exp: "Wh-soru past continuous: 'was she staring'. Example: Why was she staring at that strange painting?\nTürkçesi: Past continuous wh-soru: 'was' + özne + fiil-ing. Örnek: O garip tabloya neden bakıyordu?\nБългарски: При wh-въпрос в past continuous: 'was she staring'. Пример: Защо тя втренчено гледаше онзи странен портрет?" },
+  { q: "The teacher _____ the lesson when the bell rang.", a: "was explaining", options: ["explained","was explaining","is explaining"], exp: "Interrupted action in past continuous: 'was explaining'. Example: The teacher was explaining the lesson when the bell rang.\nTürkçesi: Kesilen eylem: 'was explaining'. Örnek: Zil çaldığında öğretmen dersi anlatıyordu.\nБългарски: За прекъснато действие: 'was explaining'. Пример: Когато звънецът прозвъня, учителят обясняваше урока." },
+  { q: "We _____ our homework when our friends called.", a: "were doing", options: ["did","were doing","do"], exp: "Past continuous for activity in progress: 'were doing'. Example: We were doing our homework when our friends called.\nTürkçesi: Süreç içindeki eylem: 'were doing'. Örnek: Arkadaşlarımız aradığında ödevimizi yapıyorduk.\nБългарски: За действие в ход: 'were doing'. Пример: Докато ни се обадиха приятелите, си правехме домашното." },
+  { q: "He _____ on the phone when I entered.", a: "was talking", options: ["talked","was talking","is talking"], exp: "Ongoing past action: 'was talking'. Example: He was talking on the phone when I entered.\nTürkçesi: Devam eden geçmiş eylem: 'was talking'. Örnek: Ben girince telefonda konuşuyordu.\nБългарски: За текущо действие: 'was talking'. Пример: Той говореше по телефона, когато влязох." },
+  { q: "They _____ a movie when you called them.", a: "were watching", options: ["watched","were watching","are watching"], exp: "Past continuous to set the scene: 'were watching'. Example: They were watching a movie when you called them.\nTürkçesi: Sahne betimlemesi: 'were watching'. Örnek: Seni aradığında film izliyorlardı.\nБългарски: За опис на сцена: 'were watching'. Пример: Те гледаха филм, когато ги позвъни." },
+  { q: "My mother _____ in the kitchen when I came home.", a: "was cooking", options: ["cooked","was cooking","cooking"], exp: "Background action in past: 'was cooking'. Example: My mother was cooking in the kitchen when I came home.\nTürkçesi: Arka plan eylemi: 'was cooking'. Örnek: Eve geldiğimde annem mutfakta yemek pişiriyordu.\nБългарски: За фонова дейност: 'was cooking'. Пример: Майка ми готвеше в кухнята, когато се прибрах." },
+  { q: "The plane _____ through the clouds.", a: "was flying", options: ["flew","was flying","is flying"], exp: "Descriptive past continuous: 'was flying'. Example: The plane was flying through the clouds.\nTürkçesi: Betimleyici geçmiş: 'was flying'. Örnek: Uçak bulutların arasından geçiyordu.\nБългарски: За описание в минало продължително: 'was flying'. Пример: Самолетът летеше през облаците." },
+  { q: "They _____ for the bus when it finally came.", a: "were waiting", options: ["waited","were waiting","are waiting"], exp: "Ongoing past action: 'were waiting'. Example: They were waiting for the bus when it finally came.\nTürkçesi: Geçmişte devam eden eylem: 'were waiting'. Örnek: Otobüs nihayet geldiğinde bekliyorlardı.\nБългарски: За продължително действие: 'were waiting'. Пример: Те чакаха автобуса, когато най-после пристигна." },
+  { q: "I _____ to sleep when the storm began.", a: "was trying", options: ["tried","was trying","am trying"], exp: "Action in progress before another past action: 'was trying'. Example: I was trying to sleep when the storm began.\nTürkçesi: Önceki eylem: 'was trying'. Örnek: Fırtına başladığında uyumaya çalışıyordum.\nБългарски: За действие в процес: 'was trying'. Пример: Опитвах се да заспя, когато започна бурята." },
+  { q: "Were you _____ at the meeting?", a: "taking notes", options: ["took notes","taking notes","take notes"], exp: "Yes/no past continuous question: 'were you taking'. Example: Were you taking notes at the meeting?\nTürkçesi: Past continuous soru: 'were you taking'. Örnek: Toplantıda not alıyor muydun?\nБългарски: При въпрос в past continuous: 'were you taking'. Пример: Записваше ли си бележки на срещата?" },
+  { q: "The dog _____ in the yard all day.", a: "was barking", options: ["barked","was barking","is barking"], exp: "Continuous action over duration: 'was barking'. Example: The dog was barking in the yard all day.\nTürkçesi: Süreç içindeki eylem: 'was barking'. Örnek: Köpek bütün gün bahçede havlıyordu.\nБългарски: За продължително действие: 'was barking'. Пример: Кучето лаеше в двора цял ден." },
+  { q: "He _____ about quitting his job when we talked.", a: "was thinking", options: ["thought","was thinking","is thinking"], exp: "Past continuous for thought process: 'was thinking'. Example: He was thinking about quitting his job when we talked.\nTürkçesi: Düşünce süreci: 'was thinking'. Örnek: Konuştuğumuzda işi bırakmayı düşünüyordu.\nБългарски: За мисловен процес: 'was thinking'. Пример: Мислеше да напусне работата си, когато говорихме." },
+  { q: "She _____ out of the room in tears.", a: "was running", options: ["ran","was running","runs"], exp: "Action in progress in past: 'was running'. Example: She was running out of the room in tears.\nTürkçesi: Geçmişte devam eden eylem: 'was running'. Örnek: Ağlayarak odadan çıkıyordu.\nБългарски: За действие в ход: 'was running'. Пример: Тя бягаше от стаята в сълзи." },
+  { q: "They _____ at the same time every day.", a: "were jogging", options: ["jogged","were jogging","jog"], exp: "Habitual past continuous: 'were jogging'. Example: They were jogging at the same time every day.\nTürkçesi: Geçmişte alışkanlık: 'were jogging'. Örnek: Her gün aynı saatte koşuyorlardı.\nБългарски: За навик в миналото: 'were jogging'. Пример: Те тичаха всеки ден по едно и също време." },
+  { q: "What _____ the children _____?", a: "were the children doing", options: ["did the children do","were the children doing","do the children do"], exp: "Wh-soru past continuous: 'were the children doing'. Example: What were the children doing?\nTürkçesi: Geçmişte ne yaptıklarını sormak için: 'were the children doing'. Örnek: Çocuklar ne yapıyordu?\nБългарски: За wh-въпрос в past continuous: 'were the children doing'. Пример: Какво правеха децата?" },
+  { q: "The sun _____ when we woke up.", a: "was shining", options: ["shone","was shining","is shining"], exp: "Descriptive past continuous: 'was shining'. Example: The sun was shining when we woke up.\nTürkçesi: Betimleyici geçmiş: 'was shining'. Örnek: Uyandığımızda güneş parlıyordu.\nБългарски: За описание в миналото: 'was shining'. Пример: Слънцето грее, когато се събудихме." },
+  { q: "She was always _____ his jokes.", a: "laughing at", options: ["always laughed at","was always laughing at","always laughs at"], exp: "Past continuous with 'always' for annoyance: 'was always laughing at'. Example: She was always laughing at his jokes.\nTürkçesi: Past continuous 'always' ile: 'was always laughing at'. Örnek: Sürekli şakalarına gülüyordu.\nБългарски: При 'always' в past continuous: 'was always laughing at'. Пример: Тя винаги се смееше на шегите му." },
+  { q: "They _____ to the radio when the alarm went off.", a: "were listening", options: ["listened","were listening","listening"], exp: "Interrupted past continuous: 'were listening'. Example: They were listening to the radio when the alarm went off.\nTürkçesi: Kesilen eylem: 'were listening'. Örnek: Alarm çaldığında radyoyu dinliyorlardı.\nБългарски: За прекъснато действие: 'were listening'. Пример: Те слушаха радио, когато прозвъня алармата." }
+
+
+    ];
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
