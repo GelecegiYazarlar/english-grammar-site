@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Perfect Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Future Perfect Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+	 { q: "By the time she finishes, we _____ for three hours.", a: "will have been waiting", options: ["will wait","will have waited","will have been waiting"], exp: "Future perfect continuous uses 'will have been' + verb-ing: 'will have been waiting'. Example: By the time she finishes, we will have been waiting for three hours.\nTürkçesi: Gelecekte belirli bir zamana kadar devam eden eylemler için 'will have been' + fiil-ing: 'will have been waiting'. Örnek: O bitirdiğinde üç saattir beklemiş olacağız.\nБългарски: Future perfect continuous се използва 'will have been' + герунд: 'will have been waiting'. Пример: Когато тя приключи, ще сме чакали вече три часа." },
+  { q: "At 9 AM tomorrow, he _____ for five hours.", a: "will have been driving", options: ["will drive","will have driven","will have been driving"], exp: "Future perfect continuous uses 'will have been' + verb-ing: 'will have been driving'. Example: At 9 AM tomorrow, he will have been driving for five hours.\nTürkçesi: Gelecek sürekli mükemmel zaman için 'will have been' + fiil-ing: 'will have been driving'. Örnek: Yarın saat 09:00’da beş saattir araba kullanıyor olacak.\nБългарски: Future perfect continuous: 'will have been driving'. Пример: Утре в 9:00 ще е карал вече пет часа." },
+  { q: "They _____ together for a year by December.", a: "will have been working", options: ["will work","will have worked","will have been working"], exp: "Future perfect continuous: 'will have been working'. Example: They will have been working together for a year by December.\nTürkçesi: Gelecek sürekli mükemmel zaman: 'will have been working'. Örnek: Aralık’a kadar bir yıldır birlikte çalışıyor olacaklar.\nБългарски: Future perfect continuous: 'will have been working'. Пример: До декември ще са работили заедно вече година." },
+  { q: "How long _____ you _____ English by the exam?", a: "will have been studying", options: ["will study","will have studied","will have been studying"], exp: "Future perfect continuous: 'will have been studying'. Example: How long will you have been studying English by the exam?\nTürkçesi: Gelecek sürekli mükemmel: 'will have been studying'. Örnek: Sınava kadar ne kadar süredir İngilizce çalışıyor olacaksın?\nБългарски: Future perfect continuous: 'will have been studying'. Пример: Колко време ще учиш английски до изпита?" },
+  { q: "By next March, she _____ at this company for a decade.", a: "will have been teaching", options: ["will teach","will have taught","will have been teaching"], exp: "Future perfect continuous: 'will have been teaching'. Example: By next March, she will have been teaching at this company for a decade.\nTürkçesi: Future perfect continuous: 'will have been teaching'. Örnek: Gelecek Mart’a kadar bu şirkette on yıldır öğretmenlik yapıyor olacak.\nБългарски: Future perfect continuous: 'will have been teaching'. Пример: До следващия март ще е преподавала в тази компания вече десет години." },
+  { q: "He _____ for eight hours by midnight.", a: "will have been sleeping", options: ["will sleep","will have slept","will have been sleeping"], exp: "Future perfect continuous: 'will have been sleeping'. Example: He will have been sleeping for eight hours by midnight.\nTürkçesi: 'will have been sleeping'. Örnek: Gece yarısına kadar sekiz saattir uyuyor olacak.\nБългарски: Future perfect continuous: 'will have been sleeping'. Пример: До полунощ ще е спал вече осем часа." },
+  { q: "We _____ at the airport for two hours by then.", a: "will have been waiting", options: ["will wait","will have waited","will have been waiting"], exp: "Future perfect continuous: 'will have been waiting'. Example: We will have been waiting at the airport for two hours by then.\nTürkçesi: 'will have been waiting'. Örnek: O ana kadar havaalanında iki saattir beklemiş olacağız.\nБългарски: Future perfect continuous: 'will have been waiting'. Пример: До тогава ще сме чакали на летището вече два часа." },
+  { q: "Tomorrow at 6, I _____ for the marathon for six months.", a: "will have been training", options: ["will train","will have trained","will have been training"], exp: "Future perfect continuous: 'will have been training'. Example: Tomorrow at 6, I will have been training for the marathon for six months.\nTürkçesi: 'will have been training'. Örnek: Yarın saat 18:00’de altı aydır maraton için antrenman yapıyor olacağım.\nБългарски: Future perfect continuous: 'will have been training'. Пример: Утре в 18:00 ще съм тренирал за маратон вече шест месеца." },
+  { q: "By the time you read this, I _____ across Europe.", a: "will have been traveling", options: ["will travel","will have traveled","will have been traveling"], exp: "Future perfect continuous: 'will have been traveling'. Example: By the time you read this, I will have been traveling across Europe.\nTürkçesi: 'will have been traveling'. Örnek: Bunu okuduğunda Avrupa’yı geziyor olacağım.\nБългарски: Future perfect continuous: 'will have been traveling'. Пример: Когато прочетеш това, ще пътувам из Европа вече." },
+  { q: "Will they _____ on that project for two weeks by then?", a: "will have been working", options: ["work","will have worked","will have been working"], exp: "Future perfect continuous question: 'will have been working'. Example: Will they have been working on that project for two weeks by then?\nTürkçesi: Soruda 'will have been working'. Örnek: O ana kadar o proje üzerinde iki haftadır çalışıyor olacaklar mı?\nБългарски: Future perfect continuous въпрос: 'will have been working'. Пример: До тогава ще са работили по този проект вече две седмици?" },
+  { q: "At the end of July, she _____ here for twenty years.", a: "will have been living", options: ["will live","will have lived","will have been living"], exp: "Future perfect continuous: 'will have been living'. Example: At the end of July, she will have been living here for twenty years.\nTürkçesi: 'will have been living'. Örnek: Temmuz sonunda yirmi yıldır burada yaşıyor olacak.\nБългарски: Future perfect continuous: 'will have been living'. Пример: В края на юли ще е живяла тук вече двадесет години." },
+  { q: "How long _____ they _____ these negotiations by tomorrow?", a: "will have been having", options: ["have","will have","will have been having"], exp: "Future perfect continuous: 'will have been having'. Example: How long will they have been having these negotiations by tomorrow?\nTürkçesi: 'will have been having'. Örnek: Yarın bu zamana kadar bu müzakereleri ne kadar süredir yapıyor olacaklar?\nБългарски: Future perfect continuous: 'will have been having'. Пример: Колко време ще водят тези преговори до утре?" },
+  { q: "He _____ the piano for two hours when you call.", a: "will have been practicing", options: ["will practice","will have practiced","will have been practicing"], exp: "Future perfect continuous: 'will have been practicing'. Example: He will have been practicing the piano for two hours when you call.\nTürkçesi: 'will have been practicing'. Örnek: Seni aradığında iki saattir piyano çalışıyor olacak.\nБългарски: Future perfect continuous: 'will have been practicing'. Пример: Когато се обадиш, той ще е свирил на пиано вече два часа." },
+  { q: "Tomorrow at this time, we _____ through the desert.", a: "will have been driving", options: ["will drive","will have driven","will have been driving"], exp: "Future perfect continuous: 'will have been driving'. Example: Tomorrow at this time, we will have been driving through the desert.\nTürkçesi: 'will have been driving'. Örnek: Yarın bu saatte çölde araba kullanıyor olacağız.\nБългарски: Future perfect continuous: 'will have been driving'. Пример: Утре по това време ще караме кола през пустинята." },
+  { q: "She _____ for a new job before she got the offer, but by then she _____ for months.", a: "will have been looking", options: ["will look","will have looked","will have been looking"], exp: "Future perfect continuous: 'will have been looking'. Example: She will have been looking for a new job for months before she got the offer.\nTürkçesi: 'will have been looking'. Örnek: Teklifi almadan önce aylarca yeni iş arıyor olacak.\nБългарски: Future perfect continuous: 'will have been looking'. Пример: Тя ще е търсила нова работа с месеци, преди да получи офертата." },
+  { q: "By the time the show starts, the band _____ for ten hours.", a: "will have been rehearsing", options: ["will rehearse","will have rehearsed","will have been rehearsing"], exp: "Future perfect continuous: 'will have been rehearsing'. Example: By the time the show starts, the band will have been rehearsing for ten hours.\nTürkçesi: 'will have been rehearsing'. Örnek: Gösteri başladığında grup on saattir prova yapıyor olacak.\nБългарски: Future perfect continuous: 'will have been rehearsing'. Пример: Когато започне шоуто, групата ще е репетирала вече десет часа." },
+  { q: "They _____ this construction for five years by its inauguration.", a: "will have been building", options: ["will build","will have built","will have been building"], exp: "Future perfect continuous: 'will have been building'. Example: They will have been building this construction for five years by its inauguration.\nTürkçesi: 'will have been building'. Örnek: Açılışına kadar beş yıldır bu yapıyı inşa ediyor olacaklar.\nБългарски: Future perfect continuous: 'will have been building'. Пример: До откриването ще са строили това съоръжение вече пет години." },
+  { q: "At 10 PM tonight, I _____ on this report for twelve hours.", a: "will have been working", options: ["work","will work","will have been working"], exp: "Future perfect continuous: 'will have been working'. Example: At 10 PM tonight, I will have been working on this report for twelve hours.\nTürkçesi: 'will have been working'. Örnek: Bu gece saat 22:00’de bu rapor üzerinde on iki saattir çalışıyor olacağım.\nБългарски: Future perfect continuous: 'will have been working'. Пример: Утре в 22:00 ще работя по този доклад вече дванадесет часа." },
+  { q: "Will you _____ for me when I arrive?", a: "will have been waiting", options: ["wait","have waited","will have been waiting"], exp: "Future perfect continuous question: 'will have been waiting'. Example: Will you have been waiting for me when I arrive?\nTürkçesi: 'will have been waiting'. Örnek: Ben geldiğimde beni bekliyor olacak mısın?\nБългарски: Future perfect continuous въпрос: 'will have been waiting'. Пример: Ще ме чакаш ли, когато пристигна?" },
+  { q: "By tomorrow morning, the nurse _____ the patient for eight hours.", a: "will have been monitoring", options: ["will monitor","will have monitored","will have been monitoring"], exp: "Future perfect continuous: 'will have been monitoring'. Example: By tomorrow morning, the nurse will have been monitoring the patient for eight hours.\nTürkçesi: 'will have been monitoring'. Örnek: Yarın sabaha kadar hemşire hastayı sekiz saattir izliyor olacak.\nБългарски: Future perfect continuous: 'will have been monitoring'. Пример: До утре сутринта медицинската сестра ще е наблюдавала пациента вече осем часа." },
+  { q: "He _____ complaining about the delay for an hour by then.", a: "will have been", options: ["will complain","will have complained","will have been complaining"], exp: "Future perfect continuous: 'will have been complaining'. Example: He will have been complaining about the delay for an hour by then.\nTürkçesi: 'will have been complaining'. Örnek: O ana kadar gecikme hakkında bir saattir şikayet ediyor olacak.\nБългарски: Future perfect continuous: 'will have been complaining'. Пример: До тогава ще се е оплаквал от закъснението вече час." },
+  { q: "We _____ new skills for months when the course ends.", a: "will have been learning", options: ["will learn","will have learned","will have been learning"], exp: "Future perfect continuous: 'will have been learning'. Example: We will have been learning new skills for months when the course ends.\nTürkçesi: 'will have been learning'. Örnek: Kurs bitene kadar aylarca yeni beceriler öğreniyor olacağız.\nБългарски: Future perfect continuous: 'will have been learning'. Пример: До края на курса ще сме учили нови умения вече с месеци." },
+  { q: "At 5 PM, they _____ the conference for two days.", a: "will have been attending", options: ["will attend","will have attended","will have been attending"], exp: "Future perfect continuous: 'will have been attending'. Example: At 5 PM, they will have been attending the conference for two days.\nTürkçesi: 'will have been attending'. Örnek: Saat 17:00’de konferansa iki gündür katılıyor olacaklar.\nБългарски: Future perfect continuous: 'will have been attending'. Пример: В 17:00 те ще са присъствали на конференцията вече два дни." },
+  { q: "I _____ coffee all afternoon by the time you arrive.", a: "will have been drinking", options: ["will drink","will have drunk","will have been drinking"], exp: "Future perfect continuous: 'will have been drinking'. Example: I will have been drinking coffee all afternoon by the time you arrive.\nTürkçesi: 'will have been drinking'. Örnek: Sen geldiğinde bütün öğleden sonra kahve içiyor olacağım.\nБългарски: Future perfect continuous: 'will have been drinking'. Пример: До момента, когато пристигнеш, ще пия кафе през цялото следобед." },
+  { q: "They _____ the system upgrade next weekend.", a: "will have been installing", options: ["will install","will have installed","will have been installing"], exp: "Future perfect continuous: 'will have been installing'. Example: They will have been installing the system upgrade next weekend.\nTürkçesi: 'will have been installing'. Örnek: Gelecek hafta sonu sistem yükseltmesini kuruyor olacaklar.\nБългарски: Future perfect continuous: 'will have been installing'. Пример: Следващия уикенд ще инсталират ъпгрейда на системата." }
+];
+
+
+
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
