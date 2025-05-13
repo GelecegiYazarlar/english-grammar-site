@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Perfect Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Past Perfect Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+{ q: "I _____ _____ for two hours before she arrived.", a: "had been waiting", options: ["had been waiting","have been waiting","was waiting"], exp: "Past perfect continuous uses 'had been' + verb-ing for actions continuing up to a past point: 'had been waiting'. Example: I had been waiting for two hours before she arrived.\nTürkçesi: Past perfect continuous, geçmişte belli bir zamana kadar devam eden eylemler için 'had been' + fiil-ing kullanılır: 'had been waiting'. Örnek: Geldiğinde iki saattir beklemiş bulunuyordum.\nБългарски: За Past Perfect Continuous се използва 'had been' + герунд за дейности, продължили до определен момент: 'had been waiting'. Пример: Бях чакал два часа, преди тя да пристигне." },
+  { q: "They _____ _____ all morning when the power went out.", a: "had been working", options: ["had been working","have been working","were working"], exp: "Past perfect continuous: 'had been working'. Example: They had been working all morning when the power went out.\nTürkçesi: Past perfect continuous ile 'had been working'. Örnek: Elektrikler kesildiğinde bütün sabah çalışmışlardı.\nБългарски: Past Perfect Continuous: 'had been working'. Пример: Бяха работили цялата сутрин, когато спря токът." },
+  { q: "He _____ _____ tennis until he injured his knee.", a: "had been playing", options: ["had been playing","have been playing","was playing"], exp: "Past perfect continuous: 'had been playing'. Example: He had been playing tennis until he injured his knee.\nTürkçesi: Past perfect continuous ile 'had been playing'. Örnek: Dizini sakatlanana kadar tenis oynuyordu.\nБългарски: Past Perfect Continuous: 'had been playing'. Пример: Той играеше тенис, докато не си контузи коляното." },
+  { q: "We _____ _____ the project for weeks before the deadline.", a: "had been planning", options: ["had been planning","were planning","have been planning"], exp: "Past perfect continuous: 'had been planning'. Example: We had been planning the project for weeks before the deadline.\nTürkçesi: Past perfect continuous ile 'had been planning'. Örnek: Projeyi teslim tarihine kadar haftalardır planlıyorduk.\nБългарски: Past Perfect Continuous: 'had been planning'. Пример: Планирахме проекта с седмици преди крайния срок." },
+  { q: "She _____ _____ Spanish before moving to Madrid.", a: "had been studying", options: ["had been studying","have been studying","was studying"], exp: "Past perfect continuous: 'had been studying'. Example: She had been studying Spanish before moving to Madrid.\nTürkçesi: Past perfect continuous ile 'had been studying'. Örnek: Madrid'e taşınmadan önce İspanyolca çalışıyordu.\nБългарски: Past Perfect Continuous: 'had been studying'. Пример: Тя учеше испански преди да се премести в Мадрид." },
+  { q: "The kids _____ _____ quietly before the teacher came.", a: "had been studying", options: ["had been studying","were studying","have been studying"], exp: "Past perfect continuous: 'had been studying'. Example: The kids had been studying quietly before the teacher came.\nTürkçesi: Past perfect continuous ile 'had been studying'. Örnek: Öğretmen gelmeden önce çocuklar sessizce ders çalışıyordu.\nБългарски: Past Perfect Continuous: 'had been studying'. Пример: Децата учеха тихо, преди да дойде учителят." },
+  { q: "It _____ _____ heavily all night.", a: "had been raining", options: ["had been raining","was raining","have been raining"], exp: "Past perfect continuous: 'had been raining'. Example: It had been raining heavily all night.\nTürkçesi: Past perfect continuous ile 'had been raining'. Örnek: Bütün gece şiddetli yağmur yağmıştı.\nБългарски: Past Perfect Continuous: 'had been raining'. Пример: Цяла нощ валя силен дъжд." },
+  { q: "You _____ _____ that book when I borrowed it.", a: "had been reading", options: ["had been reading","were reading","have been reading"], exp: "Past perfect continuous: 'had been reading'. Example: You had been reading that book when I borrowed it.\nTürkçesi: Past perfect continuous ile 'had been reading'. Örnek: Kitabı ödünç aldığımda okuyordun.\nБългарски: Past Perfect Continuous: 'had been reading'. Пример: Четеше тази книга, когато я взех назаем." },
+  { q: "He _____ _____ about that idea for months.", a: "had been thinking", options: ["had been thinking","was thinking","have been thinking"], exp: "Past perfect continuous: 'had been thinking'. Example: He had been thinking about that idea for months.\nTürkçesi: Past perfect continuous ile 'had been thinking'. Örnek: Aylarca o fikir üzerinde düşünmüş oldu.\nБългарски: Past Perfect Continuous: 'had been thinking'. Пример: Месеци наред мислеше за тази идея." },
+  { q: "The company _____ _____ on the merger until last week.", a: "had been working", options: ["had been working","were working","have been working"], exp: "Past perfect continuous: 'had been working'. Example: The company had been working on the merger until last week.\nTürkçesi: Past perfect continuous ile 'had been working'. Örnek: Şirkete geçen haftaya kadar birleşme üzerinde çalışıyordu.\nБългарски: Past Perfect Continuous: 'had been working'. Пример: Компанията работеше по сливането до миналата седмица." },
+  { q: "By the time I called, they _____ _____ dinner.", a: "had been eating", options: ["had been eating","were eating","had eaten"], exp: "Past perfect continuous: 'had been eating'. Example: By the time I called, they had been eating dinner.\nTürkçesi: Past perfect continuous ile 'had been eating'. Örnek: Aradığımda akşam yemeği yiyorlardı.\nБългарски: Past Perfect Continuous: 'had been eating'. Пример: Когато се обадих, те вече вечеряха." },
+  { q: "She _____ _____ the report for an hour when the meeting started.", a: "had been writing", options: ["had been writing","was writing","have been writing"], exp: "Past perfect continuous: 'had been writing'. Example: She had been writing the report for an hour when the meeting started.\nTürkçesi: Past perfect continuous ile 'had been writing'. Örnek: Toplantı başladığında bir saattir rapor yazıyordu.\nБългарски: Past Perfect Continuous: 'had been writing'. Пример: Тя пишеше доклада вече един час, когато започна срещата." },
+  { q: "We _____ _____ at the crossroads when the storm hit.", a: "had been waiting", options: ["had been waiting","were waiting","have been waiting"], exp: "Past perfect continuous: 'had been waiting'. Example: We had been waiting at the crossroads when the storm hit.\nTürkçesi: Past perfect continuous ile 'had been waiting'. Örnek: Fırtına vurduğunda kavşakta bekliyorduk.\nБългарски: Past Perfect Continuous: 'had been waiting'. Пример: Чакахме на кръстовището, когато се развихри бурята." },
+  { q: "They _____ _____ for the bus for half an hour.", a: "had been waiting", options: ["had been waiting","were waiting","have been waiting"], exp: "Past perfect continuous: 'had been waiting'. Example: They had been waiting for the bus for half an hour.\nTürkçesi: Past perfect continuous ile 'had been waiting'. Örnek: Yarım saattir otobüs beklemişlerdi.\nБългарски: Past Perfect Continuous: 'had been waiting'. Пример: Чакаха автобуса половин час." },
+  { q: "I _____ _____ on the phone for ages.", a: "had been talking", options: ["had been talking","was talking","have been talking"], exp: "Past perfect continuous: 'had been talking'. Example: I had been talking on the phone for ages.\nTürkçesi: Past perfect continuous ile 'had been talking'. Örnek: Sürekli telefonla konuşmuş oldum.\nБългарски: Past Perfect Continuous: 'had been talking'. Пример: Бях говорил по телефона с часове." },
+  { q: "The students _____ _____ in pairs when the bell rang.", a: "had been working", options: ["had been working","were working","have been working"], exp: "Past perfect continuous: 'had been working'. Example: The students had been working in pairs when the bell rang.\nTürkçesi: Past perfect continuous ile 'had been working'. Örnek: Zil çaldığında öğrenciler ikişer ikişer çalışıyordu.\nБългарски: Past Perfect Continuous: 'had been working'. Пример: Студентите работеха по двойки, когато прозвъни звънецът." },
+  { q: "He _____ _____ for a new job before he got the offer.", a: "had been looking", options: ["had been looking","was looking","have been looking"], exp: "Past perfect continuous: 'had been looking'. Example: He had been looking for a new job before he got the offer.\nTürkçesi: Past perfect continuous ile 'had been looking'. Örnek: Teklif gelene kadar yeni iş arıyordu.\nБългарски: Past Perfect Continuous: 'had been looking'. Пример: Търсеше нова работа, преди да получи офертата." },
+  { q: "We _____ _____ the new office layout when the fire alarm sounded.", a: "had been discussing", options: ["had been discussing","were discussing","have been discussing"], exp: "Past perfect continuous: 'had been discussing'. Example: We had been discussing the new office layout when the fire alarm sounded.\nTürkçesi: Past perfect continuous ile 'had been discussing'. Örnek: Yangın alarmı çaldığında yeni ofis planını tartışıyorduk.\nБългарски: Past Perfect Continuous: 'had been discussing'. Пример: Обсъждахме новата схема на офиса, когато прозвъня пожарната аларма." },
+  { q: "She _____ _____ her presentation when the projector failed.", a: "had been rehearsing", options: ["had been rehearsing","was rehearsing","have been rehearsing"], exp: "Past perfect continuous: 'had been rehearsing'. Example: She had been rehearsing her presentation when the projector failed.\nTürkçesi: Past perfect continuous ile 'had been rehearsing'. Örnek: Projektör bozulduğunda sunumunu prova ediyordu.\nБългарски: Past Perfect Continuous: 'had been rehearsing'. Пример: Тя репетираше презентацията си, когато проекторът се повреди." },
+  { q: "They _____ _____ about selling the company for some time.", a: "had been talking", options: ["had been talking","were talking","have been talking"], exp: "Past perfect continuous: 'had been talking'. Example: They had been talking about selling the company for some time.\nTürkçesi: Past perfect continuous ile 'had been talking'. Örnek: Bir süredir şirketi satmayı konuşuyorlardı.\nБългарски: Past Perfect Continuous: 'had been talking'. Пример: Обсъждаха продажбата на компанията от известно време." },
+  { q: "He _____ _____ the piano since he was a child.", a: "had been playing", options: ["had been playing","was playing","have been playing"], exp: "Past perfect continuous: 'had been playing'. Example: He had been playing the piano since he was a child.\nTürkçesi: Past perfect continuous ile 'had been playing'. Örnek: Çocukken beri piyano çalıyordu.\nБългарски: Past Perfect Continuous: 'had been playing'. Пример: Свиреше на пиано от детството си." },
+  { q: "We _____ _____ on renovating the house for months.", a: "had been working", options: ["had been working","were working","have been working"], exp: "Past perfect continuous: 'had been working'. Example: We had been working on renovating the house for months.\nTürkçesi: Past perfect continuous ile 'had been working'. Örnek: Aylarca evi yenileme üzerinde çalışıyorduk.\nБългарски: Past Perfect Continuous: 'had been working'. Пример: Месеци наред работехме по обновяването на къщата." },
+  { q: "You _____ _____ that puzzle all day.", a: "had been trying", options: ["had been trying","were trying","have been trying"], exp: "Past perfect continuous: 'had been trying'. Example: You had been trying that puzzle all day.\nTürkçesi: Past perfect continuous ile 'had been trying'. Örnek: Bütün gün o bulmacayı çözmeye çalışıyordun.\nБългарски: Past Perfect Continuous: 'had been trying'. Пример: Прекара цял ден в опити да разрешиш тази пъзел." },
+  { q: "It _____ _____ without stopping for hours.", a: "had been snowing", options: ["had been snowing","was snowing","have been snowing"], exp: "Past perfect continuous: 'had been snowing'. Example: It had been snowing without stopping for hours.\nTürkçesi: Past perfect continuous ile 'had been snowing'. Örnek: Saatlerce durmadan kar yağıyordu.\nБългарски: Past Perfect Continuous: 'had been snowing'. Пример: Валеше сняг непрекъснато с часове." },
+  { q: "The team _____ _____ their strategy when the coach arrived.", a: "had been refining", options: ["had been refining","were refining","have been refining"], exp: "Past perfect continuous: 'had been refining'. Example: The team had been refining their strategy when the coach arrived.\nTürkçesi: Past perfect continuous ile 'had been refining'. Örnek: Antrenör geldiğinde stratejilerini geliştiriyorlardı.\nБългарски: Past Perfect Continuous: 'had been refining'. Пример: Отборът усъвършенстваше стратегията си, когато пристигна треньорът." },
+  { q: "I _____ _____ about that issue since morning.", a: "had been worrying", options: ["had been worrying","was worrying","have been worrying"], exp: "Past perfect continuous: 'had been worrying'. Example: I had been worrying about that issue since morning.\nTürkçesi: Past perfect continuous ile 'had been worrying'. Örnek: Sabah beri o konuda endişeleniyordum.\nБългарски: Past Perfect Continuous: 'had been worrying'. Пример: През цялото утро се тревожех за този въпрос." },
+  { q: "She _____ _____ complaints before management intervened.", a: "had been making", options: ["had been making","was making","have been making"], exp: "Past perfect continuous: 'had been making'. Example: She had been making complaints before management intervened.\nTürkçesi: Past perfect continuous ile 'had been making'. Örnek: Yönetim müdahale etmeden önce şikayetlerde bulunuyordu.\nБългарски: Past Perfect Continuous: 'had been making'. Пример: Тя правеше оплаквания, преди ръководството да се намеси." },
+  { q: "They _____ _____ excuses all morning.", a: "had been making", options: ["had been making","were making","have been making"], exp: "Past perfect continuous: 'had been making'. Example: They had been making excuses all morning.\nTürkçesi: Past perfect continuous ile 'had been making'. Örnek: Bütün sabah bahaneler üretiyorlardı.\nБългарски: Past Perfect Continuous: 'had been making'. Пример: Сутринта правеха оправдания." },
+  { q: "We _____ _____ rain earlier that day.", a: "had been expecting", options: ["had been expecting","were expecting","have been expecting"], exp: "Past perfect continuous: 'had been expecting'. Example: We had been expecting rain earlier that day.\nTürkçesi: Past perfect continuous ile 'had been expecting'. Örnek: O gün daha erken yağmur bekliyorduk.\nБългарски: Past Perfect Continuous: 'had been expecting'. Пример: Предвидихме, че по-рано ще вали." },
+  { q: "He _____ _____ for feedback during the entire session.", a: "had been asking", options: ["had been asking","was asking","have been asking"], exp: "Past perfect continuous: 'had been asking'. Example: He had been asking for feedback during the entire session.\nTürkçesi: Past perfect continuous ile 'had been asking'. Örnek: Oturum boyunca geri bildirim istiyordu.\nБългарски: Past Perfect Continuous: 'had been asking'. Пример: Той искаше обратна връзка през цялата сесия." }
+];
+
+
+
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
