@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Continuous Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #eef5f9 0%, #d6e6f2 100%);
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #1a5276;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #quizContainer {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* Delays for each question */
+    .question:nth-child(1) { animation-delay: 0.1s; }
+    .question:nth-child(2) { animation-delay: 0.2s; }
+    .question:nth-child(3) { animation-delay: 0.30000000000000004s; }
+    .question:nth-child(4) { animation-delay: 0.4s; }
+    .question:nth-child(5) { animation-delay: 0.5s; }
+    .question:nth-child(6) { animation-delay: 0.6000000000000001s; }
+    .question:nth-child(7) { animation-delay: 0.7000000000000001s; }
+    .question:nth-child(8) { animation-delay: 0.8s; }
+    .question:nth-child(9) { animation-delay: 0.9s; }
+    .question:nth-child(10) { animation-delay: 1.0s; }
+    .question:nth-child(11) { animation-delay: 1.1s; }
+    .question:nth-child(12) { animation-delay: 1.2000000000000002s; }
+    .question:nth-child(13) { animation-delay: 1.3s; }
+    .question:nth-child(14) { animation-delay: 1.4000000000000001s; }
+    .question:nth-child(15) { animation-delay: 1.5s; }
+    .question:nth-child(16) { animation-delay: 1.6s; }
+    .question:nth-child(17) { animation-delay: 1.7000000000000002s; }
+    .question:nth-child(18) { animation-delay: 1.8s; }
+    .question:nth-child(19) { animation-delay: 1.9000000000000001s; }
+    .question:nth-child(20) { animation-delay: 2.0s; }
+    .question:nth-child(21) { animation-delay: 2.1s; }
+    .question:nth-child(22) { animation-delay: 2.2s; }
+    .question:nth-child(23) { animation-delay: 2.3000000000000003s; }
+    .question:nth-child(24) { animation-delay: 2.4000000000000004s; }
+    .question:nth-child(25) { animation-delay: 2.5s; }
+    .question:nth-child(26) { animation-delay: 2.6s; }
+    .question:nth-child(27) { animation-delay: 2.7s; }
+    .question:nth-child(28) { animation-delay: 2.8000000000000003s; }
+    .question:nth-child(29) { animation-delay: 2.9000000000000004s; }
+    .question:nth-child(30) { animation-delay: 3.0s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .question h3 {
+      margin: 0 0 20px;
+      font-size: 1.25rem;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 15px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .options label:hover {
+      background-color: #f0f8ff;
+      border-color: #3498db;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #3498db;
+      transition: transform 0.2s;
+    }
+    .options input[type="radio"]:checked {
+      transform: scale(1.4);
+    }
+    button {
+      display: block;
+      margin: 40px auto;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    button:active { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    button:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
+    }
+    #results {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeInDown 0.6s ease;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #fcf8e3;
+      border-left: 6px solid #f1c40f;
+      border-radius: 6px;
+      color: #7a6600;
+      white-space: pre-line;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Future Continuous Quiz</h1>
+  <div id="quizContainer"></div>
+  <button onclick="submitQuiz()">🎯 Submit Quiz</button>
+  <div id="results"></div>
+  <script>
+    const questions = [
+	
+	  { q: "At 8 PM tomorrow, I _____ dinner with clients.", a: "will be having", options: ["will have","will be having","will have had"], exp: "Future continuous uses 'will be' + verb-ing: 'will be having'. Example: At 8 PM tomorrow, I will be having dinner with clients.\nTürkçesi: Gelecek sürekli zaman için 'will be' + fiil-ing: 'will be having'. Örnek: Yarın saat 20:00’de müşterilerle akşam yemeği yiyor olacağım.\nБългарски: За future continuous се използва 'will be' + герунд: 'will be having'. Пример: Утре в 20:00 ще вечерям с клиенти." },
+  { q: "They _____ to Paris this time next week.", a: "will be traveling", options: ["will travel","will have traveled","will be traveling"], exp: "Future continuous: 'will be traveling'. Example: They will be traveling to Paris this time next week.\nTürkçesi: Gelecek sürekli zaman: 'will be traveling'. Örnek: Gelecek hafta bu saatte Paris’e seyahat ediyor olacaklar.\nБългарски: Future continuous: 'will be traveling'. Пример: Те ще пътуват за Париж по това време следващата седмица." },
+  { q: "Will you _____ us at the meeting tomorrow?", a: "be joining", options: ["join","be joining","have joined"], exp: "Future continuous question: 'Will you be joining'. Example: Will you be joining us at the meeting tomorrow?\nTürkçesi: Gelecek sürekli soru: 'Will you be joining'. Örnek: Yarın toplantıya bize katılıyor olacak mısın?\nБългарски: Future continuous въпрос: 'Will you be joining'. Пример: Ще се присъединиш ли към нас на срещата утре?" },
+  { q: "She _____ the conference next month.", a: "will not be attending", options: ["will not attend","will not be attending","will have attended"], exp: "Negative future continuous: 'will not be attending'. Example: She will not be attending the conference next month.\nTürkçesi: Gelecek sürekli olumsuz: 'will not be attending'. Örnek: Gelecek ay konferansa katılmıyor olacak.\nБългарски: Отрицателно future continuous: 'will not be attending'. Пример: Тя няма да присъства на конференцията следващия месец." },
+  { q: "We _____ on the new project all day Saturday.", a: "will be working", options: ["will work","will have worked","will be working"], exp: "Future continuous: 'will be working'. Example: We will be working on the new project all day Saturday.\nTürkçesi: Gelecek sürekli zaman: 'will be working'. Örnek: Cumartesi tüm gün yeni proje üzerinde çalışıyor olacağız.\nБългарски: Future continuous: 'will be working'. Пример: В събота ще работим по новия проект цял ден." },
+  { q: "By this time tomorrow, you _____ over the Atlantic.", a: "will be flying", options: ["will fly","will have flown","will be flying"], exp: "Future continuous: 'will be flying'. Example: By this time tomorrow, you will be flying over the Atlantic.\nTürkçesi: Gelecek sürekli zaman: 'will be flying'. Örnek: Yarın bu saatte Atlantik’in üzerinden uçuyor olacaksın.\nБългарски: Future continuous: 'will be flying'. Пример: Утре по това време ще летиш над Атлантика." },
+  { q: "He _____ in New York from June to September.", a: "will be living", options: ["will live","will have lived","will be living"], exp: "Future continuous for temporary future: 'will be living'. Example: He will be living in New York from June to September.\nTürkçesi: Geçici gelecek eylem: 'will be living'. Örnek: Haziran’dan Eylül’e kadar New York’ta yaşıyor olacak.\nБългарски: За временно бъдещо действие: 'will be living'. Пример: Той ще живее в Ню Йорк от юни до септември." },
+  { q: "They _____ the merger at 3 PM.", a: "will be discussing", options: ["will discuss","will be discussing","will have discussed"], exp: "Future continuous: 'will be discussing'. Example: They will be discussing the merger at 3 PM.\nTürkçesi: Gelecek sürekli zaman: 'will be discussing'. Örnek: Saat 15:00’te birleşmeyi tartışıyor olacaklar.\nБългарски: Future continuous: 'will be discussing'. Пример: Те ще обсъждат сливането в 15:00." },
+  { q: "What _____ you _____ when we arrive?", a: "will be doing", options: ["will do","will have done","will be doing"], exp: "Wh-question future continuous: 'will be doing'. Example: What will you be doing when we arrive?\nTürkçesi: Gelecek sürekli wh-soru: 'will be doing'. Örnek: Biz vardığımızda ne yapıyor olacaksın?\nБългарски: Wh-въпрос future continuous: 'will be doing'. Пример: Какво ще правиш, когато пристигнем?" },
+  { q: "The students _____ their exams next week.", a: "will be taking", options: ["will take","will have taken","will be taking"], exp: "Future continuous: 'will be taking'. Example: The students will be taking their exams next week.\nTürkçesi: Gelecek sürekli zaman: 'will be taking'. Örnek: Öğrenciler gelecek hafta sınavlarını yapıyor olacak.\nБългарски: Future continuous: 'will be taking'. Пример: Студентите ще държат изпитите си следващата седмица." },
+  { q: "We _____ at the hotel beyond Friday.", a: "will not be staying", options: ["will not stay","will not be staying","will have stayed"], exp: "Negative future continuous: 'will not be staying'. Example: We will not be staying at the hotel beyond Friday.\nTürkçesi: Gelecek sürekli olumsuz: 'will not be staying'. Örnek: Cuma’dan sonra otelde kalmıyor olacağız.\nБългарски: Отрицателно future continuous: 'will not be staying'. Пример: Няма да престояваме в хотела след петък." },
+  { q: "I _____ for you at the station.", a: "will be waiting", options: ["will wait","will have waited","will be waiting"], exp: "Future continuous: 'will be waiting'. Example: I will be waiting for you at the station.\nTürkçesi: Gelecek sürekli zaman: 'will be waiting'. Örnek: İstasyonda seni bekliyor olacağım.\nБългарски: Future continuous: 'will be waiting'. Пример: Ще те чакам на гарата." },
+  { q: "They _____ their anniversary next month.", a: "will be celebrating", options: ["will celebrate","will have celebrated","will be celebrating"], exp: "Future continuous: 'will be celebrating'. Example: They will be celebrating their anniversary next month.\nTürkçesi: Gelecek sürekli zaman: 'will be celebrating'. Örnek: Gelecek ay yıldönümlerini kutluyor olacaklar.\nБългарски: Future continuous: 'will be celebrating'. Пример: Те ще празнуват годишнината си следващия месец." },
+  { q: "Will she _____ remotely next year?", a: "be working", options: ["work","be working","have worked"], exp: "Future continuous question: 'Will she be working'. Example: Will she be working remotely next year?\nTürkçesi: Gelecek sürekli soru: 'Will she be working'. Örnek: Gelecek yıl uzaktan çalışıyor olacak mı?\nБългарски: Future continuous въпрос: 'Will she be working'. Пример: Ще работи ли дистанционно следващата година?" },
+  { q: "He _____ the files tomorrow morning.", a: "will be organizing", options: ["will organize","will be organizing","will have organized"], exp: "Future continuous: 'will be organizing'. Example: He will be organizing the files tomorrow morning.\nTürkçesi: Gelecek sürekli zaman: 'will be organizing'. Örnek: Yarın sabah dosyaları düzenliyor olacak.\nБългарски: Future continuous: 'will be organizing'. Пример: Утре сутрин той ще подрежда файловете." },
+  { q: "The team _____ the report at 10 AM.", a: "will be presenting", options: ["will present","will be presenting","will have presented"], exp: "Future continuous: 'will be presenting'. Example: The team will be presenting the report at 10 AM.\nTürkçesi: Gelecek sürekli zaman: 'will be presenting'. Örnek: Ekip raporu saat 10:00’da sunuyor olacak.\nБългарски: Future continuous: 'will be presenting'. Пример: Екипът ще представя доклада в 10:00." },
+  { q: "Will you _____ your car tonight?", a: "be using", options: ["use","be using","have used"], exp: "Future continuous question: 'Will you be using'. Example: Will you be using your car tonight?\nTürkçesi: Gelecek sürekli soru: 'Will you be using'. Örnek: Bu gece arabanı kullanıyor olacak mısın?\nБългарски: Future continuous въпрос: 'Will you be using'. Пример: Ще използваш ли колата си тази вечер?" },
+  { q: "They _____ us until Monday.", a: "will not be expecting", options: ["will not expect","will not be expecting","will have expected"], exp: "Negative future continuous: 'will not be expecting'. Example: They will not be expecting us until Monday.\nTürkçesi: Gelecek sürekli olumsuz: 'will not be expecting'. Örnek: Pazartesiye kadar bizi beklemiyor olacaklar.\nБългарски: Отрицателно future continuous: 'will not be expecting'. Пример: Няма да ни очакват до понеделник." },
+  { q: "We _____ the product launch next quarter.", a: "will be launching", options: ["will launch","will be launching","will have launched"], exp: "Future continuous: 'will be launching'. Example: We will be launching the product next quarter.\nTürkçesi: Gelecek sürekli zaman: 'will be launching'. Örnek: Gelecek çeyrekte ürünü piyasaya sürüyor olacağız.\nБългарски: Future continuous: 'will be launching'. Пример: Ще пуснем продукта през следващото тримесечие." },
+  { q: "At midnight, they _____ live.", a: "will be performing", options: ["will perform","will be performing","will have performed"], exp: "Future continuous: 'will be performing'. Example: At midnight, they will be performing live.\nTürkçesi: Gelecek sürekli zaman: 'will be performing'. Örnek: Gece yarısında canlı performans sergiliyor olacaklar.\nБългарски: Future continuous: 'will be performing'. Пример: По полунощ ще свирят на живо." },
+  { q: "She _____ the contract all afternoon.", a: "will be negotiating", options: ["will negotiate","will be negotiating","will have negotiated"], exp: "Future continuous: 'will be negotiating'. Example: She will be negotiating the contract all afternoon.\nTürkçesi: Gelecek sürekli zaman: 'will be negotiating'. Örnek: Tüm öğleden sonra sözleşmeyi müzakere ediyor olacak.\nБългарски: Future continuous: 'will be negotiating'. Пример: Тя ще преговаря по договора цял следобед." },
+  { q: "Will the CEO _____ at the seminar?", a: "be speaking", options: ["speak","be speaking","have spoken"], exp: "Future continuous question: 'Will the CEO be speaking'. Example: Will the CEO be speaking at the seminar?\nTürkçesi: Gelecek sürekli soru: 'Will the CEO be speaking'. Örnek: CEO seminerde konuşuyor olacak mı?\nБългарски: Future continuous въпрос: 'Will the CEO be speaking'. Пример: Изпълнителният директор ще говори ли на семинара?" },
+  { q: "The guests _____ between 5 and 6 PM.", a: "will be arriving", options: ["will arrive","will be arriving","will have arrived"], exp: "Future continuous: 'will be arriving'. Example: The guests will be arriving between 5 and 6 PM.\nTürkçesi: Gelecek sürekli zaman: 'will be arriving'. Örnek: Misafirler 17:00–18:00 arasında geliyor olacak.\nБългарски: Future continuous: 'will be arriving'. Пример: Гостите ще пристигат между 17:00 и 18:00." },
+  { q: "I _____ at my parents' house this weekend.", a: "will be staying", options: ["will stay","will be staying","will have stayed"], exp: "Future continuous: 'will be staying'. Example: I will be staying at my parents' house this weekend.\nTürkçesi: Gelecek sürekli zaman: 'will be staying'. Örnek: Bu hafta sonu ailemin evinde kalıyor olacağım.\nБългарски: Future continuous: 'will be staying'. Пример: Тази седмица ще отседна при родителите си." },
+  { q: "They _____ the situation continuously.", a: "will be monitoring", options: ["will monitor","will be monitoring","will have monitored"], exp: "Future continuous: 'will be monitoring'. Example: They will be monitoring the situation continuously.\nTürkçesi: Gelecek sürekli zaman: 'will be monitoring'. Örnek: Durumu sürekli izliyor olacaklar.\nБългарски: Future continuous: 'will be monitoring'. Пример: Те ще наблюдават ситуацията непрекъснато." },
+  { q: "We _____ candidates all day.", a: "will be interviewing", options: ["will interview","will be interviewing","will have interviewed"], exp: "Future continuous: 'will be interviewing'. Example: We will be interviewing candidates all day.\nTürkçesi: Gelecek sürekli zaman: 'will be interviewing'. Örnek: Tüm gün adaylarla mülakat yapıyor olacağız.\nБългарски: Future continuous: 'will be interviewing'. Пример: Ще провеждаме интервюта с кандидати цял ден." },
+  { q: "At this rate, you _____ on this for weeks.", a: "will be working", options: ["will work","will be working","will have worked"], exp: "Future continuous: 'will be working'. Example: At this rate, you will be working on this for weeks.\nTürkçesi: Gelecek sürekli zaman: 'will be working'. Örnek: Bu tempoyla haftalarca bunun üzerinde çalışıyor olacaksın.\nБългарски: Future continuous: 'will be working'. Пример: При това темпо ще работиш по това с седмици." },
+  { q: "Will you _____ dinner or eating out?", a: "be cooking", options: ["cook","be cooking","have cooked"], exp: "Future continuous question: 'Will you be cooking'. Example: Will you be cooking dinner or eating out?\nTürkçesi: Gelecek sürekli soru: 'Will you be cooking'. Örnek: Yemek yapıyor olacak mısın yoksa dışarı mı çıkacağız?\nБългарски: Future continuous въпрос: 'Will you be cooking'. Пример: Ще готвиш ли вечеря или ще вечеряме навън?" },
+  { q: "She _____ in the competition next week.", a: "will not be taking part", options: ["will not take part","will not be taking part","will have taken part"], exp: "Negative future continuous: 'will not be taking part'. Example: She will not be taking part in the competition next week.\nTürkçesi: Gelecek sürekli olumsuz: 'will not be taking part'. Örnek: Gelecek hafta yarışmaya katılmıyor olacak.\nБългарски: Отрицателно future continuous: 'will not be taking part'. Пример: Тя няма да участва в състезанието следващата седмица." },
+  { q: "We _____ the system next weekend.", a: "will be upgrading", options: ["will upgrade","will be upgrading","will have upgraded"], exp: "Future continuous: 'will be upgrading'. Example: We will be upgrading the system next weekend.\nTürkçesi: Gelecek sürekli zaman: 'will be upgrading'. Örnek: Gelecek hafta sonu sistemi güncelliyor olacağız.\nБългарски: Future continuous: 'will be upgrading'. Пример: Следващия уикенд ще надграждаме системата." }
+
+];
+
+
+
+    const container = document.getElementById("quizContainer");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Q${i+1}: ${q.q}</h3><div class="options">${q.options.map(opt => `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`).join('')}</div><div id="exp${i}" class="explanation" style="display:none"></div>`;
+      container.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        const expDiv = document.getElementById(`exp${i}`);
+        if (sel) {
+          if (sel.value === q.a) {
+            score++;
+            expDiv.innerHTML = '<span style="color:green">✅ Correct!</span>';
+          } else {
+            expDiv.innerHTML = '<span style="color:red">❌ Wrong.</span><br>' + q.exp;
+          }
+        } else {
+          expDiv.innerHTML = '<span style="color:orange">⚠️ No answer selected.</span><br>' + q.exp;
+        }
+        expDiv.style.display = "block";
+      });
+      document.getElementById("results").innerText = `🎉 You got ${score} out of ${questions.length} correct.`;
+    }
+  </script>
+</body>
+</html>
